@@ -25,7 +25,7 @@ const RoomDetails = () => {
 
       <div className='bg-room h-[560px] relative flex justify-center items-center bg-cover bg-center'>
         <div className='absolute w-full h-full bg-black/70' />
-        <h1 className='text-6xl text-white z-20 font-primary text-center'>{name} Details</h1>
+        <h1 className='text-6xl text-white z-20 font-primary text-center'>{name}...</h1>
       </div>
 
 
@@ -41,7 +41,7 @@ const RoomDetails = () => {
 
             <div className='mt-12'>
               <h3 className='h3 mb-3'></h3>
-              <p className='mb-12'> Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis accusantium sapiente quas quos explicabo, odit nostrum? Reiciendis illum dolor eos dicta. Illum vero at hic nostrum sint et quod porro. </p>
+              <p className='mb-12'> Amenities: </p>
 
               {/* icons grid */}
               <div className="grid grid-cols-3 gap-6 mb-12">

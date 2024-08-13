@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes, } from 'react-router-dom';
 import { Footer, Header, PageNotFound } from './components';
 import { Home, RoomDetails } from './pages';
+import Restaurant from "./pages/Restaurant.jsx";
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
         <Routes>
           <Route path={'/'} element={<Home />} />
           <Route path={'/room/:id'} element={<RoomDetails />} />
+          <Route path={'/restaurant'} element={<Restaurant />} />
           <Route path={'*'} element={<PageNotFound />} />
         </Routes>
 

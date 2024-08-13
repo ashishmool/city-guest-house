@@ -48,7 +48,5 @@ export const hotelRules = [
     {
         rules: 'Check-out : 11:00 AM',
     },
-    {
-        rules: 'No Pets',
-    },
+
 ]
