@@ -24,9 +24,9 @@ const NearbyAttraction = () => {
                         <div className='w-full lg:w-[50%] h-full'>
                             <h3 className='text-3xl font-semibold mb-4'>{attraction.name}</h3>
                             <p className='text-base mb-4 text-justify'>{attraction.description}</p>
-                            <p className='text-base'><strong>Location:</strong> {attraction.location}</p>
-                            <p className='text-base'><strong>Contact:</strong> {attraction.contact}</p>
-                            <p className='text-base'><strong>Website:</strong> <a href={attraction.website} className='text-accent underline'>{attraction.website}</a></p>
+                            <p className='text-base mb-2'><strong>Location:</strong> {attraction.location}</p>
+                            <p className='text-base mb-2'><strong>Contact:</strong> {attraction.contact}</p>
+                            <p className='text-base mb-2'><strong>Website:</strong> <a href={attraction.website} className='text-accent underline'>{attraction.website}</a></p>
                         </div>
                     </div>
                 ))}

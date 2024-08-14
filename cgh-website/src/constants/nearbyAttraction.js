@@ -19,4 +19,13 @@ export const attractionsData = [
         website: 'https://youtu.be/96IZtlraC54?si=Tc8bnB1iJMdX1feR',
         image: 'src/assets/img/handloom.jpg', // Replace with actual image path
     },
+    {
+        id: 3,
+        name: 'Club Bagmati Pvt. Ltd',
+        description: 'Club Bagmati is a full dose of entertainment where you can enjoy swimming with foods in restaurant.An amazing getaway, a short drive from the busy streets of Kathmandu, into a serene space to immerse yourself in tranquility.',
+        location: 'Sipadole, Bhaktapur',
+        contact: '(+977) 9813943777',
+        website: 'https://www.gobhaktapur.com/listing/club-bagmati-bhaktapur/',
+        image: 'src/assets/img/clubbagmati.jpg', // Replace with actual image path
+    },
 ];

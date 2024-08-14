@@ -41,6 +41,10 @@ const Restaurant = () => {
                                 </div>
                             </div>
                         ))}
+                        {/* Note Section */}
+                        <div className='mt-8 text-left'>
+                            <p className='text-sm text-gray-600'>Important Note: Price includes all taxes and charges.</p>
+                        </div>
                     </div>
 
 
@@ -48,9 +52,16 @@ const Restaurant = () => {
                     {/* Right Side: Restaurant Rules and Info */}
                     <div className='w-full lg:w-[40%] h-full'>
 
+                        {/* Image Section */}
+                        {/* Image Section */}
+                        <div className='mb-0'>
+                            <img src='src/assets/img/waiter.png' alt='Waiter' className='w-full h-auto' />
+                        </div>
+
+
                         {/* Restaurant Info */}
                         <div className='py-8 px-6 bg-accent/20 mb-12'>
-                            <h3>About Our Restaurant</h3>
+                            <h3 className='mb-4'><strong>About Our Restaurant</strong></h3>
                             <p className='mb-6 text-justify'>
                                 Our restaurant offers a delightful culinary experience with a menu that combines local flavors with international cuisine. Whether you're here for a casual lunch or an elegant dinner, our selection of dishes and beverages ensures that every meal is memorable.
                             </p>
@@ -74,10 +85,7 @@ const Restaurant = () => {
                                     </li>
                                 ))}
                             </ul>
-                            {/* Note Section */}
-                            <div className='mt-8 text-left'>
-                                <p className='text-sm text-gray-600'>Important Note: Price includes all taxes and charges.</p>
-                            </div>
+
                         </div>
 
                     </div>
