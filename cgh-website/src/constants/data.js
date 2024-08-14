@@ -22,21 +22,24 @@ export const kidsList = [
 export const sliderData = [
     {
         id: 1,
-        title: 'Right in The Center of Town',
-        bg: images.Slider4,
-        btnNext: 'View RoomView',
+        title: 'Modern Contemporary Rooms',
+        bg: images.Slider5,
+        btnNext: 'View Rooms',
+        to: '/rooms',
     },
     {
         id: 2,
-        title: 'Modern Contemporary RoomView',
-        bg: images.Slider5,
-        btnNext: 'View RoomView',
+        title: 'Right in The Center of Town',
+        bg: images.Slider7,
+        btnNext: 'View Attractions',
+        to: '/attractions',
     },
     {
         id: 3,
         title: 'Spacious Garden Rooftop',
         bg: images.Slider6,
-        btnNext: 'View RoomView',
+        btnNext: 'View Restaurant',
+        to: '/restaurant',
     },
 ]
 

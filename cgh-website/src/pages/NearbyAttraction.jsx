@@ -26,7 +26,17 @@ const NearbyAttraction = () => {
                             <p className='text-base mb-4 text-justify'>{attraction.description}</p>
                             <p className='text-base mb-2'><strong>Location:</strong> {attraction.location}</p>
                             <p className='text-base mb-2'><strong>Contact:</strong> {attraction.contact}</p>
-                            <p className='text-base mb-2'><strong>Website:</strong> <a href={attraction.website} className='text-accent underline'>{attraction.website}</a></p>
+                            <p className='text-base mb-2'>
+                                <strong>Website:</strong>
+                                <a
+                                    href={attraction.website}
+                                    className='text-accent underline'
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {attraction.website}
+                                </a>
+                            </p>
                         </div>
                     </div>
                 ))}
