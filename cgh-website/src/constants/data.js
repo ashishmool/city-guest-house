@@ -24,19 +24,19 @@ export const sliderData = [
         id: 1,
         title: 'Right in The Center of Town',
         bg: images.Slider4,
-        btnNext: 'View Rooms',
+        btnNext: 'View RoomView',
     },
     {
         id: 2,
-        title: 'Modern Contemporary Rooms',
+        title: 'Modern Contemporary RoomView',
         bg: images.Slider5,
-        btnNext: 'View Rooms',
+        btnNext: 'View RoomView',
     },
     {
         id: 3,
         title: 'Spacious Garden Rooftop',
         bg: images.Slider6,
-        btnNext: 'View Rooms',
+        btnNext: 'View RoomView',
     },
 ]
 

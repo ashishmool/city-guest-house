@@ -8,7 +8,7 @@ const Restaurant = () => {
             <ScrollToTop />
 
             {/* Header Section */}
-            <div className='bg-room h-[560px] relative flex justify-center items-center bg-cover bg-center'>
+            <div className='bg-restaurant h-[560px] relative flex justify-center items-center bg-cover bg-center'>
                 <div className='absolute w-full h-full bg-black/70' />
                 <h1 className='text-6xl text-white z-20 font-primary text-center'>Our Restaurant</h1>
             </div>
@@ -31,9 +31,9 @@ const Restaurant = () => {
                                         .filter((item) => item.category === category.name)
                                         .map((item) => (
                                             <div key={item.id} className='flex items-start gap-x-4'>
-                                                <div className='text-xl text-accent'>{item.name}</div>
                                                 <div className='flex-1'>
-                                                    <p className='text-base'>{item.description}</p>
+                                                    <div className='text-xl text-accent'>{item.name}</div>
+                                                    <p className='text-sm text-gray-700'>{item.description}</p>
                                                 </div>
                                                 <div className='text-base'>{item.price}</div>
                                             </div>
@@ -42,6 +42,8 @@ const Restaurant = () => {
                             </div>
                         ))}
                     </div>
+
+
 
                     {/* Right Side: Restaurant Rules and Info */}
                     <div className='w-full lg:w-[40%] h-full'>
@@ -72,6 +74,10 @@ const Restaurant = () => {
                                     </li>
                                 ))}
                             </ul>
+                            {/* Note Section */}
+                            <div className='mt-8 text-left'>
+                                <p className='text-sm text-gray-600'>Important Note: Price includes all taxes and charges.</p>
+                            </div>
                         </div>
 
                     </div>

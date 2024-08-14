@@ -1,7 +1,9 @@
 import { BrowserRouter, Route, Routes, } from 'react-router-dom';
-import { Footer, Header, PageNotFound } from './components';
+import {Footer, Header, PageNotFound, Rooms} from './components';
 import { Home, RoomDetails } from './pages';
 import Restaurant from "./pages/Restaurant.jsx";
+import NearbyAttraction from "./pages/NearbyAttraction.jsx";
+import RoomView from "./pages/RoomView.jsx";
 
 
 const App = () => {
@@ -26,6 +28,8 @@ const App = () => {
           <Route path={'/'} element={<Home />} />
           <Route path={'/room/:id'} element={<RoomDetails />} />
           <Route path={'/restaurant'} element={<Restaurant />} />
+          <Route path={'/attractions'} element={<NearbyAttraction />} />
+          <Route path={'/rooms'} element={<RoomView />} />
           <Route path={'*'} element={<PageNotFound />} />
         </Routes>
 
