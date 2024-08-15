@@ -29,6 +29,7 @@ module.exports = {
         room: "url('/src/assets/img/room.jpg')",
         view: "url('/src/assets/img/view.jpg')",
         restaurant: "url('/src/assets/img/restaurant.jpg')",
+        nearby: "url('/src/assets/img/bhaktapur-rainy.jpg')",
       },
     },
   },

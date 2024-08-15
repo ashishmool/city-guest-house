@@ -4,6 +4,7 @@ import { Home, RoomDetails } from './pages';
 import Restaurant from "./pages/Restaurant.jsx";
 import NearbyAttraction from "./pages/NearbyAttraction.jsx";
 import RoomView from "./pages/RoomView.jsx";
+import Contact from "./pages/Contact.jsx";
 
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
           <Route path={'/restaurant'} element={<Restaurant />} />
           <Route path={'/attractions'} element={<NearbyAttraction />} />
           <Route path={'/rooms'} element={<RoomView />} />
+          <Route path={'/contact'} element={<Contact />} />
           <Route path={'*'} element={<PageNotFound />} />
         </Routes>
 

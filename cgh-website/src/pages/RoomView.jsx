@@ -1,5 +1,5 @@
 import { ScrollToTop } from '../components';
-import RoomsContent from '../components/Rooms.jsx';  // Import the RoomView content component
+import RoomsContent from '../components/Rooms.jsx';
 
 const RoomView = () => {
     return (
@@ -14,6 +14,7 @@ const RoomView = () => {
 
             {/* Main Content */}
             <RoomsContent />  {/* The imported content component */}
+
 
         </section>
     );

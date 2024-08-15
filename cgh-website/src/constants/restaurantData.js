@@ -80,18 +80,12 @@ export const menuItems = [
 
 export const restaurantRules = [
     {
-        rules: 'No outside food or beverages allowed.',
-    },
-    {
-        rules: 'Please dress in smart casual attire.',
-    },
-    {
-        rules: 'Reservations are recommended, especially on weekends.',
-    },
-    {
         rules: 'Please inform us of any dietary restrictions or allergies.',
     },
     {
         rules: 'Children must be supervised at all times.',
+    },
+    {
+        rules: 'Reservations are recommended, especially on weekends.',
     },
 ];

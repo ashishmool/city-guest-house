@@ -18,7 +18,9 @@ const Home = () => {
       </div>
 
       <Rooms />
+
     </div>
+
   );
 };
 
