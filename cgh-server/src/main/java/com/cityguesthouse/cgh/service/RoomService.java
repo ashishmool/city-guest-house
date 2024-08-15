@@ -3,16 +3,17 @@ package com.cityguesthouse.cgh.service;
 import com.cityguesthouse.cgh.entity.Room;
 import com.cityguesthouse.cgh.pojo.RoomPojo;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 public interface RoomService {
 
-    String saveRoom(RoomPojo roomPojo);
+    String saveRoom(RoomPojo roomPojo) throws IOException;
 
     List<Room> getAllRooms();
 
-    void deleteRoomById(Long id);
+    void deleteRoomById(Long id) throws IOException;
 
     Optional<Room> getRoomById(Long id);
 

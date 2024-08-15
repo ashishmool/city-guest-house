@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -37,9 +38,9 @@ public class RoomPojo {
     @Positive(message = "Room price must be positive")
     private Double price;
 
-    @NotBlank(message = "Room image is required")
-    private String image;
+    @NotNull(message = "Room image is required")
+    private MultipartFile image;
 
-    @NotBlank(message = "Room large image is required")
-    private String imageLg;
+    @NotNull(message = "Room large image is required")
+    private MultipartFile imageLg;
 }

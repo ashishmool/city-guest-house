@@ -6,6 +6,7 @@ import com.cityguesthouse.cgh.service.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +18,7 @@ public class RoomController {
     private final RoomService roomService;
 
     @PostMapping("/save")
-    public String saveRoom(@RequestBody RoomPojo roomPojo) {
+    public String saveRoom(@RequestBody RoomPojo roomPojo) throws IOException {
         return roomService.saveRoom(roomPojo);
     }
 
@@ -32,7 +33,7 @@ public class RoomController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteRoomById(@PathVariable Long id) {
+    public String deleteRoomById(@PathVariable Long id) throws IOException {
         roomService.deleteRoomById(id);
         return "Room deleted successfully!";
     }

@@ -45,6 +45,7 @@ public class SpringSecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/login",
                         "/attractions/**",
+                        "/rooms/**",
                         "/system-user/**",
                         "/dashboard/**",
                         "/authenticate",
