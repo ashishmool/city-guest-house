@@ -8,7 +8,8 @@ export const attractionsData = [
         location: 'Durbar Square, Bhaktapur',
         contact: '(+977) 1 6615566',
         website: 'https://www.gobhaktapur.com/listing/daily-grind/',
-        image: 'src/assets/img/daily-grind.jpg', // Replace with actual image path
+        image: 'src/assets/img/daily-grind.jpg',
+
     },
     {
         id: 2,
@@ -17,7 +18,7 @@ export const attractionsData = [
         location: 'Sukuldhoka Street, Golmadhi -7, Bhaktapur',
         contact: '(+977) 9847878786',
         website: 'https://youtu.be/96IZtlraC54?si=Tc8bnB1iJMdX1feR',
-        image: 'src/assets/img/handloom.jpg', // Replace with actual image path
+        image: 'src/assets/img/handloom.jpg',
     },
     {
         id: 3,
@@ -26,6 +27,6 @@ export const attractionsData = [
         location: 'Sipadole, Bhaktapur',
         contact: '(+977) 9813943777',
         website: 'https://www.gobhaktapur.com/listing/club-bagmati-bhaktapur/',
-        image: 'src/assets/img/clubbagmati.jpg', // Replace with actual image path
+        image: 'src/assets/img/clubbagmati.jpg',
     },
 ];

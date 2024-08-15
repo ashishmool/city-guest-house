@@ -44,6 +44,7 @@ public class SpringSecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/login",
+                        "/attractions/**",
                         "/system-user/**",
                         "/dashboard/**",
                         "/authenticate",
