@@ -18,8 +18,8 @@
     <tr>
         <td style="padding: 32px 48px 0 48px;">
             <div style="float: left; margin-left: 16px;">
-                <p style="color:rgb(189, 9, 18); font-size: 16px; font-weight: 600; margin-bottom: 8px; margin-top: 8px;">BikerXNepal</p>
-                <p style="color:rgb(66, 93, 184); font-size: 14px; font-weight: 600; margin-top: 8px;">www.bikerxnepal.com.np</p>
+                <p style="color:rgb(189, 9, 18); font-size: 16px; font-weight: 600; margin-bottom: 8px; margin-top: 8px;">City Guest House</p>
+                <p style="color:rgb(66, 93, 184); font-size: 14px; font-weight: 600; margin-top: 8px;">www.cityguesthouse.com.np</p>
             </div>
         </td>
     </tr>
@@ -75,16 +75,16 @@
         </td>
     </tr>
     <tr>
-        <td style="padding: 1rem 48px 1.5rem 48px">For additional help or information, email us at <a href="#" style="color: rgb(26, 115, 232)">bikerxnepal@gmail.com</a> </td>
+        <td style="padding: 1rem 48px 1.5rem 48px">For additional help or information, email us at <a href="#" style="color: rgb(26, 115, 232)">cityguesthouse2014@gmail.com</a> </td>
     </tr>
     <tr>
         <td style="background-color: rgb(66 93 184); padding: 1rem 0;">
             <table style="font-size: 0.75rem; color: rgb(255,255,255); width: 100%; text-align: center">
                 <tr>
-                    <td style="padding-bottom: 0.5rem">Copyright © 2024. All rights reserved.</td>
+                    <td style="padding-bottom: 0.5rem">Copyright © 2024. All Rights Reserved.</td>
                 </tr>
                 <tr>
-                    <td>BikerX Nepal Booking System</td>
+                    <td>City Guest House • Bhaktapuer, Nepal • Official Website Booking System</td>
                 </tr>
             </table>
         </td>
