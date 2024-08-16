@@ -46,6 +46,8 @@ public class SpringSecurityConfig {
                 .requestMatchers("/login",
                         "/attractions/**",
                         "/rooms/**",
+                        "/menu/**",
+                        "/categories/**",
                         "/system-user/**",
                         "/dashboard/**",
                         "/authenticate",
