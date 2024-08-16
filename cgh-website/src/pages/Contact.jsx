@@ -1,6 +1,5 @@
 import React from 'react';
 import { ScrollToTop} from '../components';
-import FacebookChat from '../components/FacebookChat.jsx';
 
 
 
@@ -84,8 +83,6 @@ const Contact = () => {
                                 tabIndex="0"
                             />
                         </div>
-
-                        <FacebookChat/>
 
                     </div>
 
