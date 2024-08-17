@@ -16,7 +16,7 @@ public interface RoomFacilitiesService {
 
     Optional<RoomFacilities> getFacilityById(Long id);
 
-    RoomFacilities getFacilityByRoomId(Long roomId);
+    List<RoomFacilities> getFacilitiesByRoomId(Long roomId);  // Updated method name and return type
 
-    List<RoomFacilities> searchFacilitiesByFilters(Long roomId, String facilityName);
+//    List<RoomFacilities> searchFacilitiesByFilters(Long roomId, String facilityName);
 }

@@ -48,6 +48,7 @@ public class SpringSecurityConfig {
                         "/rooms/**",
                         "/menu/**",
                         "/categories/**",
+                        "/room-facilities/**",
                         "/system-user/**",
                         "/dashboard/**",
                         "/authenticate",

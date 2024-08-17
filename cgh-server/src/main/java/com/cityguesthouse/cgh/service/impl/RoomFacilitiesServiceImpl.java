@@ -53,12 +53,12 @@ public class RoomFacilitiesServiceImpl implements RoomFacilitiesService {
     }
 
     @Override
-    public RoomFacilities getFacilityByRoomId(Long roomId) {
+    public List<RoomFacilities> getFacilitiesByRoomId(Long roomId) {  // Updated method name and return type
         return roomFacilitiesRepo.findByRoomId(roomId);
     }
 
-    @Override
-    public List<RoomFacilities> searchFacilitiesByFilters(Long roomId, String facilityName) {
-        return roomFacilitiesRepo.findByFilters(roomId, facilityName);
-    }
+//    @Override
+//    public List<RoomFacilities> searchFacilitiesByFilters(Long roomId, String facilityName) {
+//        return roomFacilitiesRepo.findByFilters(roomId, facilityName);
+//    }
 }

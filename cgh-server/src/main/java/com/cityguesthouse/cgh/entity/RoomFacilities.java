@@ -27,23 +27,4 @@ public class RoomFacilities {
 
     @Column(name = "facility_icon", nullable = false)
     private String facilityIcon;
-
-    // Optional: Override equals and hashCode for composite key functionality
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        RoomFacilities that = (RoomFacilities) o;
-
-        if (!room.equals(that.room)) return false;
-        return facilityName.equals(that.facilityName);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = room.hashCode();
-        result = 31 * result + facilityName.hashCode();
-        return result;
-    }
 }
