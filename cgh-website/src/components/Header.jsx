@@ -75,10 +75,12 @@ const Header = () => {
             <div className='ml-4 flex items-center'>
               {isLoggedIn ? (
                   <div className='flex items-center'>
-                    <span className='text-lg font-medium text-white mr-3'>{userEmail}</span>
+      <span className={`text-lg font-medium ${header ? 'text-primary' : 'text-gray-400'} mr-3`}>
+        {userEmail}
+      </span>
                     <button
                         onClick={handleLogout}
-                        className='flex items-center text-gray-400 hover:text-white'
+                        className={`flex items-center ${header ? 'text-gray-400 hover:text-primary' : 'text-white hover:text-gray-400'}`}
                     >
                       <FaSignOutAlt className='mr-1' />
                       Logout
@@ -87,14 +89,14 @@ const Header = () => {
               ) : (
                   <button
                       onClick={() => setShowLogin(true)}
-                      className={`${
-                          header ? 'text-primary hover:text-accent' : 'text-white hover:text-accent'
-                      } py-2 px-6 border rounded transition`}
+                      className={`py-2 px-6 border rounded transition ${header ? 'text-primary border-primary hover:text-accent' : 'text-white border-white hover:text-accent'}`}
                   >
                     Login
                   </button>
               )}
             </div>
+
+
           </div>
         </header>
 

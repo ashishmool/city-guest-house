@@ -99,9 +99,9 @@ const Login = ({ onClose }) => {
                                 onClick={() => setShowResetPassword(true)}
                                 className='hover:text-primary'
                             >
-                                Trouble logging in?
+                                Trouble logging in? Recover Password
                             </button>
-                            <span className='mx-2'>|</span>
+                            {/*<span className='mx-2'>|</span>*/}
                             <button
                                 onClick={() => setShowSignup(true)}
                                 className='hover:text-primary'
