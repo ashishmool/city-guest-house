@@ -1,13 +1,31 @@
 import { useState } from 'react';
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ResetPassword = ({ onClose }) => {
     const [email, setEmail] = useState('');
 
-    const handleResetPassword = (e) => {
+    const handleResetPassword = async (e) => {
         e.preventDefault();
-        // Add reset password logic here
-        console.log('Reset Password:', { email });
-        onClose(); // Close modal on successful password reset
+
+        try {
+            console.log('Email for Recovery:::',email);
+            // Send reset password request to the backend
+            const response = await axios.post('http://localhost:8080/recover/reset-password', {
+                sendToEmail: email,
+            });
+
+            if (response.status === 403) {
+                toast.success('Password reset email sent successfully!');
+                onClose(); // Close modal on successful password reset request
+            } else {
+                toast.error('Failed to send password reset email.');
+            }
+        } catch (error) {
+            console.error('Error sending reset password email:', error);
+            toast.error('Error sending reset password email.');
+        }
     };
 
     return (
@@ -40,6 +58,7 @@ const ResetPassword = ({ onClose }) => {
                     </button>
                 </form>
             </div>
+            <ToastContainer />
         </div>
     );
 };

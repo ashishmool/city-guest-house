@@ -1,15 +1,41 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify'; // Import toast from react-toastify
+
 
 const Signup = ({ onClose }) => {
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const handleSignup = (e) => {
+    const handleSignup = async (e) => {
         e.preventDefault();
-        // Add signup logic here
-        console.log('Signup:', { email, password, confirmPassword });
-        onClose(); // Close modal on successful signup
+
+        if (password !== confirmPassword) {
+            alert('Passwords do not match');
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:8080/system-user/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ firstName, lastName, email, password }),
+            });
+
+            if (response.ok) {
+                toast.success('Signup successful!');
+                onClose(); // Close modal on successful signup
+            } else {
+                const errorData = await response.json();
+                toast.error(`Signup error: ${errorData.message}`);
+            }
+        } catch (error) {
+            toast.error('Signup failed. Please try again.');
+        }
     };
 
     return (
@@ -24,6 +50,26 @@ const Signup = ({ onClose }) => {
                     </button>
                 </div>
                 <form onSubmit={handleSignup}>
+                    <div className='mb-4'>
+                        <label className='block text-gray-700 text-sm font-medium mb-1'>First Name</label>
+                        <input
+                            type='text'
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                            className='w-full border border-gray-300 rounded px-3 py-2 text-gray-900 bg-gray-100'
+                            required
+                        />
+                    </div>
+                    <div className='mb-4'>
+                        <label className='block text-gray-700 text-sm font-medium mb-1'>Last Name</label>
+                        <input
+                            type='text'
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                            className='w-full border border-gray-300 rounded px-3 py-2 text-gray-900 bg-gray-100'
+                            required
+                        />
+                    </div>
                     <div className='mb-4'>
                         <label className='block text-gray-700 text-sm font-medium mb-1'>Email</label>
                         <input

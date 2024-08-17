@@ -1,18 +1,52 @@
 import { useState } from 'react';
+import axios from 'axios';
 import ResetPassword from './ResetPassword'; // Import ResetPassword component
 import Signup from './Signup'; // Import Signup component
+import { toast, ToastContainer } from 'react-toastify'; // Import toast and ToastContainer
+import 'react-toastify/dist/ReactToastify.css'; // Import CSS for toast notifications
 
 const Login = ({ onClose }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showResetPassword, setShowResetPassword] = useState(false);
     const [showSignup, setShowSignup] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        // Add login logic here
-        console.log('Login:', { email, password });
-        onClose(); // Close modal on successful login
+        setIsLoading(true);
+
+        try {
+            const response = await axios.post("http://localhost:8080/authenticate", {
+                email: email,
+                password: password
+            });
+
+            const userData = response?.data?.data;
+            localStorage.setItem("accessToken", userData?.token);
+            localStorage.setItem("userId", userData?.userId);
+            localStorage.setItem("email", userData?.email);
+            localStorage.setItem("role", userData?.role);
+
+            if (userData?.role === "Customer") {
+                toast.success('Login successful! Redirecting...');
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 2000); // Delay to show toast
+            } else if (userData?.role === "Admin") {
+                toast.success('Login successful! Redirecting...');
+                setTimeout(() => {
+                    window.location.href = '/dashboard/home';
+                }, 2000); // Delay to show toast
+            } else {
+                toast.error("Username/Password Mismatch");
+            }
+        } catch (error) {
+            console.error("Authentication Failed!", error);
+            toast.error("Authentication Failed! Please try again.");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -56,8 +90,9 @@ const Login = ({ onClose }) => {
                         <button
                             type='submit'
                             className='bg-primary text-white font-bold py-3 px-4 rounded w-full'
+                            disabled={isLoading}
                         >
-                            Login
+                            {isLoading ? 'Loading...' : 'Login'}
                         </button>
                         <div className='mt-4 text-sm text-gray-600'>
                             <button
@@ -85,6 +120,17 @@ const Login = ({ onClose }) => {
                     <Signup onClose={() => setShowSignup(false)} />
                 )}
             </div>
+
+            {/* ToastContainer to show toast notifications */}
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                closeOnClick
+                pauseOnHover
+                draggable
+                pauseOnFocusLoss
+            />
         </div>
     );
 };

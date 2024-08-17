@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { LogoWhite, LogoDark } from '../assets';
 import Login from '../pages/Authentication/Login'; // Import your Login component
+import { FaSignOutAlt } from 'react-icons/fa'; // Import logout icon
 
 const Header = () => {
   const { resetRoomFilterData } = useRoomContext();
@@ -20,6 +21,17 @@ const Header = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  // Determine if user is logged in and get email
+  const accessToken = localStorage.getItem('accessToken');
+  const userEmail = localStorage.getItem('email');
+  const isLoggedIn = accessToken !== null;
+
+  // Handle user logout
+  const handleLogout = () => {
+    localStorage.clear(); // Clear all tokens and user info from localStorage
+    window.location.href = '/'; // Redirect to the home page or login page
+  };
 
   // Updated navLinks to include correct paths
   const navLinks = [
@@ -59,15 +71,30 @@ const Header = () => {
               ))}
             </nav>
 
-            {/* Login Button */}
-            <button
-                onClick={() => setShowLogin(true)}
-                className={`${
-                    header ? 'text-primary hover:text-accent' : 'text-white hover:text-accent'
-                } ml-4 py-2 px-6 border rounded transition`}
-            >
-              Login
-            </button>
+            {/* User Info or Login Button */}
+            <div className='ml-4 flex items-center'>
+              {isLoggedIn ? (
+                  <div className='flex items-center'>
+                    <span className='text-lg font-medium text-white mr-3'>{userEmail}</span>
+                    <button
+                        onClick={handleLogout}
+                        className='flex items-center text-gray-400 hover:text-white'
+                    >
+                      <FaSignOutAlt className='mr-1' />
+                      Logout
+                    </button>
+                  </div>
+              ) : (
+                  <button
+                      onClick={() => setShowLogin(true)}
+                      className={`${
+                          header ? 'text-primary hover:text-accent' : 'text-white hover:text-accent'
+                      } py-2 px-6 border rounded transition`}
+                  >
+                    Login
+                  </button>
+              )}
+            </div>
           </div>
         </header>
 

@@ -1,8 +1,12 @@
 import { RoomContext } from './context/RoomContext';
 import ReactDOM from 'react-dom/client'
 import React from 'react'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import toastify CSS
+
 import App from './App'
 import './style/index.css';
+
 
 
 ReactDOM
@@ -11,6 +15,7 @@ ReactDOM
     <RoomContext>
       <React.StrictMode>
         <App />
+          <ToastContainer />
       </React.StrictMode>
     </RoomContext>,
   )
