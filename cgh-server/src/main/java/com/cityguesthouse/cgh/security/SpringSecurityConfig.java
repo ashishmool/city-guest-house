@@ -52,8 +52,10 @@ public class SpringSecurityConfig {
                         "/system-user/**",
                         "/authenticate",
                         "/authenticate/**",
+                        "/bookings/**",
                         "/recover/**",
-                        "recover/reset-password",
+                        "/recover/reset-password",
+                        "/system-user/**",
                         "/system-user/new-password")
                 .permitAll()
                 .requestMatchers("/admin/**","/dashboard/**")

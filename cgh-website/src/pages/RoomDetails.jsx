@@ -1,21 +1,33 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { AdultsDropdown, CheckIn, CheckOut, KidsDropdown, ScrollToTop } from '../components';
+import { useParams, useNavigate } from 'react-router-dom';
+import { AdultsDropdown, CheckIn, CheckOut, KidsDropdown, ScrollToTop } from '../components'; // Assuming you have a LoginModal component
 import { fetchFacilitiesByRoomId } from '../services/roomFacilitiesService'; // Update import path if necessary
 import { hotelRules } from '../constants/data';
 import { FaCheck } from 'react-icons/fa';
-import { FaWifi, FaCoffee, FaBath, FaParking, FaHotdog, FaCocktail } from 'react-icons/fa'; // Import your icons
+import { FaWifi, FaCoffee, FaBath, FaParking, FaHotdog, FaCocktail } from 'react-icons/fa';
+import Login from "./Authentication/Login.jsx";
 
 const RoomDetails = () => {
   const { id } = useParams(); // id get from url (/room/:id) as string
   const [room, setRoom] = useState(null);
   const [facilities, setFacilities] = useState([]);
+  const [showLogin, setShowLogin] = useState(false); // State to handle login modal visibility
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (!accessToken) {
+      console.log('Not Logged In');
+      navigate('/'); // Redirect to /rooms if not logged in
+      return; // Do not fetch room data if not logged in
+    }
+
     const fetchRoomData = async () => {
       try {
         // Fetch room data and facilities (assuming you have a fetchRoom function)
         const roomResponse = await fetch(`http://localhost:8080/rooms/${id}`);
+        if (!roomResponse.ok) throw new Error('Failed to fetch room data');
         const roomData = await roomResponse.json();
         setRoom(roomData);
 
@@ -29,6 +41,18 @@ const RoomDetails = () => {
 
     fetchRoomData();
   }, [id]);
+
+  const handleLogin = () => {
+    // Handle login button click (show modal or redirect to login page)
+    setShowLogin(true); // For modal
+    // navigate('/login'); // Uncomment this line if you want to redirect to a login page
+  };
+
+  if (showLogin) {
+    return (
+        <Login onClose={() => setShowLogin(true)} /> // Render your login modal component
+    );
+  }
 
   if (!room) return <div>Loading...</div>; // Loading state
 

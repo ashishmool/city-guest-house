@@ -1,54 +1,65 @@
 package com.cityguesthouse.cgh.entity;
 
 import com.cityguesthouse.cgh.enums.BookingEnum;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import jakarta.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
 @Table(name = "bookings")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Booking {
 
     @Id
-    @SequenceGenerator(name = "booking_seq_gen", sequenceName = "booking_id_seq", allocationSize = 1)
-    @GeneratedValue(generator = "booking_seq_gen", strategy = GenerationType.SEQUENCE)
-    private Long purchaseId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "purchase_date", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_id", nullable = false)
+    private Room room;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private SystemUser systemUser;
+
+    @Column(nullable = false)
+    private LocalDate checkIn;
+
+    @Column(nullable = false)
+    private LocalDate checkOut;
+
+    @Column(nullable = false)
+    private Integer noAdults;
+
+    @Column(nullable = false)
+    private Integer noKids;
+
+    @Column(nullable = false)
     private Date purchaseDate;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private BookingEnum paymentStatus;
 
-    @Column(name = "tour_id")
-    private Long tourId;
+    @Transient
+    private Integer duration;
 
-    @Column(name = "bike_id")
-    private Long bikeId;
-
-    @Column(name = "user_id")
-    private Long userId;
-
-
-//    @ManyToOne
-//    @JoinColumn(name = "tour_id", nullable = false)
-//    private Tour tour;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "user_id", nullable = false)
-//    private SystemUser user;
-
-
-
-    @Column(name = "quantity_persons", nullable = false)
-    private Integer quantityPersons;
-
-    @Column(name = "total_amount", nullable = false)
+    @Transient
     private Double totalAmount;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "payment_status", nullable = false)
-    private BookingEnum paymentStatus;
+    @PostLoad
+    private void calculateDurationAndAmount() {
+        if (checkIn != null && checkOut != null) {
+            this.duration = (int) (checkOut.toEpochDay() - checkIn.toEpochDay());
+            this.totalAmount = this.duration * room.getPrice();
+        }
+    }
 }

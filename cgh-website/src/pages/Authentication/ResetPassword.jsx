@@ -10,15 +10,18 @@ const ResetPassword = ({ onClose }) => {
         e.preventDefault();
 
         try {
-            console.log('Email for Recovery:::',email);
+            console.log('Email for Recovery:::', email);
             // Send reset password request to the backend
             const response = await axios.post('http://localhost:8080/recover/reset-password', {
                 sendToEmail: email,
             });
 
             if (response.status === 403) {
+                // Treat 403 status as success
                 toast.success('Password reset email sent successfully!');
-                onClose(); // Close modal on successful password reset request
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 2000); // Delay to show toast before redirecting
             } else {
                 toast.error('Failed to send password reset email.');
             }

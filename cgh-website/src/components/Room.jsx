@@ -1,8 +1,24 @@
 import { BsArrowsFullscreen, BsPeople } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import { useState } from 'react';
 
 const Room = ({ room }) => {
     const { id, name, image, size, maxPerson, description, price } = room ?? {};
+    const navigate = useNavigate(); // Initialize useNavigate hook
+    const [loading, setLoading] = useState(false);
+
+    const handleBookNowClick = () => {
+        const accessToken = localStorage.getItem("accessToken");
+
+        if (!accessToken) {
+            alert('You need to log in to book this room.');
+            return;
+        }
+
+        // If logged in, proceed with booking
+        setLoading(true);
+        navigate(`/room/${id}`); // Navigate to the room details page
+    };
 
     return (
         <div className='bg-white shadow-2xl min-h-[500px] group'>
@@ -40,21 +56,19 @@ const Room = ({ room }) => {
 
             {/* name and description */}
             <div className='text-center'>
-                <Link to={`/room/${id}`}>
-                    <h3 className="h3">{name}</h3>
-                </Link>
+                <h3 className="h3">{name}</h3>
                 <p className='max-w-[300px] mx-auto mb-3 lg:mb-6'>
                     {description.slice(0, 56)}..
                 </p>
             </div>
 
             {/* button */}
-            <Link
-                to={`/room/${id}`}
+            <button
+                onClick={handleBookNowClick}
                 className="btn btn-secondary btn-sm max-w-[240px] mx-auto duration-300"
             >
-                Book now from ${price}
-            </Link>
+                {loading ? 'Processing...' : `Book now from $${price}`}
+            </button>
         </div>
     );
 };

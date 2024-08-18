@@ -2,8 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import ResetPassword from './ResetPassword'; // Import ResetPassword component
 import Signup from './Signup'; // Import Signup component
-import { toast, ToastContainer } from 'react-toastify'; // Import toast and ToastContainer
-import 'react-toastify/dist/ReactToastify.css'; // Import CSS for toast notifications
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const Login = ({ onClose }) => {
     const [email, setEmail] = useState('');
@@ -11,6 +10,7 @@ const Login = ({ onClose }) => {
     const [showResetPassword, setShowResetPassword] = useState(false);
     const [showSignup, setShowSignup] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate(); // Initialize useNavigate
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -18,8 +18,8 @@ const Login = ({ onClose }) => {
 
         try {
             const response = await axios.post("http://localhost:8080/authenticate", {
-                email: email,
-                password: password
+                email,
+                password
             });
 
             const userData = response?.data?.data;
@@ -28,25 +28,25 @@ const Login = ({ onClose }) => {
             localStorage.setItem("email", userData?.email);
             localStorage.setItem("role", userData?.role);
 
+            // Redirecting after successful login
             if (userData?.role === "Customer") {
-                toast.success('Login successful! Redirecting...');
-                setTimeout(() => {
-                    window.location.href = '/';
-                }, 2000); // Delay to show toast
+                navigate('/'); // Redirect to home page
             } else if (userData?.role === "Admin") {
-                toast.success('Login successful! Redirecting...');
-                setTimeout(() => {
-                    window.location.href = '/dashboard/home';
-                }, 2000); // Delay to show toast
-            } else {
-                toast.error("Username/Password Mismatch");
+                navigate('/dashboard/home'); // Redirect to admin dashboard
             }
+            handleClose(); // Close the modal
         } catch (error) {
             console.error("Authentication Failed!", error);
-            toast.error("Authentication Failed! Please try again.");
+            // Optionally, handle the error with a user notification
         } finally {
             setIsLoading(false);
         }
+    };
+
+    const handleClose = () => {
+        setShowResetPassword(false);
+        setShowSignup(false);
+        if (onClose) onClose(); // Call onClose prop to close the modal
     };
 
     return (
@@ -57,7 +57,7 @@ const Login = ({ onClose }) => {
                     <h2 className='text-2xl font-bold text-gray-900'>
                         {showResetPassword ? 'Reset Password' : showSignup ? 'Sign Up' : 'Login'}
                     </h2>
-                    <button onClick={onClose} className='text-gray-600 hover:text-gray-900'>
+                    <button onClick={handleClose} className='text-gray-600 hover:text-gray-900'>
                         <svg className='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
                             <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M6 18L18 6M6 6l12 12'></path>
                         </svg>
@@ -96,13 +96,14 @@ const Login = ({ onClose }) => {
                         </button>
                         <div className='mt-4 text-sm text-gray-600'>
                             <button
+                                type='button'
                                 onClick={() => setShowResetPassword(true)}
                                 className='hover:text-primary'
                             >
                                 Trouble logging in? Recover Password
                             </button>
-                            {/*<span className='mx-2'>|</span>*/}
                             <button
+                                type='button'
                                 onClick={() => setShowSignup(true)}
                                 className='hover:text-primary'
                             >
@@ -113,24 +114,13 @@ const Login = ({ onClose }) => {
                 )}
 
                 {showResetPassword && (
-                    <ResetPassword onClose={() => setShowResetPassword(false)} />
+                    <ResetPassword onClose={handleClose} />
                 )}
 
                 {showSignup && (
-                    <Signup onClose={() => setShowSignup(false)} />
+                    <Signup onClose={handleClose} />
                 )}
             </div>
-
-            {/* ToastContainer to show toast notifications */}
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                closeOnClick
-                pauseOnHover
-                draggable
-                pauseOnFocusLoss
-            />
         </div>
     );
 };

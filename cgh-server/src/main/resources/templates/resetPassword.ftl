@@ -84,7 +84,7 @@
                     <td style="padding-bottom: 0.5rem">Copyright © 2024. All Rights Reserved.</td>
                 </tr>
                 <tr>
-                    <td>City Guest House • Bhaktapuer, Nepal • Official Website Booking System</td>
+                    <td>City Guest House • Bhaktapur, Nepal • Official Website Booking System</td>
                 </tr>
             </table>
         </td>

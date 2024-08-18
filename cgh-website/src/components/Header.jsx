@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { LogoWhite, LogoDark } from '../assets';
 import Login from '../pages/Authentication/Login'; // Import your Login component
-import { FaSignOutAlt } from 'react-icons/fa'; // Import logout icon
+import { FaSignOutAlt, FaKey } from 'react-icons/fa'; // Import logout and key icons
 
 const Header = () => {
   const { resetRoomFilterData } = useRoomContext();
@@ -75,9 +75,9 @@ const Header = () => {
             <div className='ml-4 flex items-center'>
               {isLoggedIn ? (
                   <div className='flex items-center'>
-      <span className={`text-lg font-medium ${header ? 'text-primary' : 'text-gray-400'} mr-3`}>
-        {userEmail}
-      </span>
+                <span className={`text-lg font-medium ${header ? 'text-primary' : 'text-gray-400'} mr-3`}>
+                  {userEmail}
+                </span>
                     <button
                         onClick={handleLogout}
                         className={`flex items-center ${header ? 'text-gray-400 hover:text-primary' : 'text-white hover:text-gray-400'}`}
@@ -91,12 +91,11 @@ const Header = () => {
                       onClick={() => setShowLogin(true)}
                       className={`py-2 px-6 border rounded transition ${header ? 'text-primary border-primary hover:text-accent' : 'text-white border-white hover:text-accent'}`}
                   >
+                    <FaKey className='inline-block mr-2' />
                     Login
                   </button>
               )}
             </div>
-
-
           </div>
         </header>
 

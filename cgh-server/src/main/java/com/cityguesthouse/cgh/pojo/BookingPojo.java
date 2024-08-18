@@ -1,34 +1,34 @@
 package com.cityguesthouse.cgh.pojo;
 
-import com.cityguesthouse.cgh.enums.BookingEnum;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import jakarta.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class BookingPojo {
 
-    private Long purchaseId;
+    @NotNull(message = "Room ID is required")
+    private Long roomId;
 
-    @NotNull(message = "Purchase date is required")
-    private Date purchaseDate;
-
-    @NotNull(message = "Tour is required")
-    private Long tourId;
-
-    @NotNull(message = "User is required")
+    @NotNull(message = "User ID is required")
     private Long userId;
 
-    private Long bikeId;
+    @NotNull(message = "Check-in date is required")
+    private LocalDate checkIn;
 
-    @NotNull(message = "Quantity of persons is required")
-    private Integer quantityPersons;
+    @NotNull(message = "Check-out date is required")
+    private LocalDate checkOut;
 
-    private Double totalAmount;
+    @NotNull(message = "Number of adults is required")
+    private Integer noAdults;
 
-    @NotNull(message = "Payment status is required")
-    private BookingEnum paymentStatus;
+    @NotNull(message = "Number of kids is required")
+    private Integer noKids;
 }

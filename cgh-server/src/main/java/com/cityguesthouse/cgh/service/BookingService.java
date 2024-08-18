@@ -9,13 +9,18 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BookingService {
-    Booking purchaseTour(BookingPojo bookingPojo);
-    Booking updatePurchase(Long purchaseId, BookingPojo bookingPojo);
-    void deletePurchase(Long purchaseId);
-    Optional<Booking> getPurchaseById(Long purchaseId);
-    List<Booking> getAllPurchases();
-    List<Booking> getPurchasesByDate(Date purchaseDate);
 
-    List<Booking> getPurchasesByUserId(Long userId);
-    List<Booking> getPurchasesByPaymentStatus(BookingEnum paymentStatus);
+    Booking createBooking(BookingPojo bookingPojo);
+
+    Optional<Booking> getBookingById(Long id);
+
+    List<Booking> getAllBookings();
+
+    void deleteBooking(Long id);
+
+    List<Booking> findBookingsByPurchaseDate(Date purchaseDate);
+
+    List<Booking> findBookingsByPaymentStatus(BookingEnum paymentStatus);
+
+    List<Booking> findBookingsByUserId(Long userId);
 }

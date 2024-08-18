@@ -53,13 +53,13 @@ public class EmailServiceImpl implements EmailService {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
 
             model.put("email", emailRequest.getSendToEmail());
-            model.put("url", "http://bikerxnepal-bs.s3-website.eu-north-1.amazonaws.com/reset-password?token="+jwt);
+            model.put("url", "http://localhost:5173/new-password?token="+jwt);
 
             Template template = emailConfig.getTemplate("resetPassword.ftl");
             String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
 
             mimeMessageHelper.setTo(emailRequest.getSendToEmail());
-            mimeMessageHelper.setFrom("bikerxnepal@gmail.com");
+            mimeMessageHelper.setFrom("cityguesthouse2014@gmail.com");
             mimeMessageHelper.setText(html, true);
             mimeMessageHelper.setSubject("Reset password");
 
