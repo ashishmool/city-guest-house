@@ -6,15 +6,8 @@ import Restaurant from "./pages/Restaurant.jsx";
 import NearbyAttraction from "./pages/NearbyAttraction.jsx";
 import RoomView from "./pages/RoomView.jsx";
 import Contact from "./pages/Contact.jsx";
-// import NewPassword from "./pages/Authentication/NewPassword.jsx";
-// import Login from "./pages/Authentication/Login.jsx";
-// import MyBookings from "./pages/MyBookings.jsx";
-// import Dashboard from "./pages/features/DashboardLayout.jsx";
-// import AddNearbyAttraction from './pages/features/nearby-attraction/AddNearbyAttraction.jsx';
-// import ListNearbyAttraction from './pages/features/nearby-attraction/ListNearbyAttraction.jsx';
-// import UpdateNearbyAttraction from './pages/features/nearby-attraction/UpdateNearbyAttraction.jsx';
 import MainLayout from './pages/MainLayout.jsx';
-// import Dashboard from "./pages/Dashboard.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
 
 const App = () => {
   // Assume you have a way to determine the user's role
@@ -38,14 +31,14 @@ const App = () => {
               {/*<Route path="/my-bookings" element={<MyBookings />} />*/}
             </Route>
 
-             Admin Routes
-            {/*{role === "Admin" && (*/}
-            {/*    <Route path="/dashboard" element={<Dashboard />}>*/}
-            {/*      /!*<Route path="attractions" element={<ListNearbyAttraction />} />*!/*/}
-            {/*      /!*<Route path="attractions/add" element={<AddNearbyAttraction />} />*!/*/}
-            {/*      /!*<Route path="attractions/update/:id" element={<UpdateNearbyAttraction />} />*!/*/}
-            {/*    </Route>*/}
-            {/*)}*/}
+             {/*Admin Routes*/}
+            {role === "Admin" && (
+                <Route path="/dashboard" element={<Dashboard />}>
+                  {/*<Route path="attractions" element={<ListNearbyAttraction />} />*/}
+                  {/*<Route path="attractions/add" element={<AddNearbyAttraction />} />*/}
+                  {/*<Route path="attractions/update/:id" element={<UpdateNearbyAttraction />} />*/}
+                </Route>
+            )}
 
             {/* 404 Page */}
             <Route path="*" element={<PageNotFound />} />
