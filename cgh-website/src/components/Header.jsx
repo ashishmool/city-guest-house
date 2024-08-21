@@ -2,7 +2,7 @@ import { useRoomContext } from '../context/RoomContext';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { LogoWhite, LogoDark } from '../assets';
-import Login from '../pages/Authentication/Login'; // Import your Login component
+import Login from '../pages/features/authentication/Login'; // Import your Login component
 import { FaSignOutAlt, FaKey } from 'react-icons/fa'; // Import logout and key icons
 
 const Header = () => {

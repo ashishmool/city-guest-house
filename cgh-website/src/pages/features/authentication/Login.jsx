@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
-import ResetPassword from './ResetPassword'; // Import ResetPassword component
-import Signup from './Signup'; // Import Signup component
+import ResetPassword from './ResetPassword.jsx'; // Import ResetPassword component
+import Signup from './Signup.jsx'; // Import Signup component
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const Login = ({ onClose }) => {
@@ -32,7 +32,7 @@ const Login = ({ onClose }) => {
             if (userData?.role === "Customer") {
                 navigate('/'); // Redirect to home page
             } else if (userData?.role === "Admin") {
-                navigate('/dashboard/home'); // Redirect to admin dashboard
+                navigate('/dashboard'); // Redirect to admin dashboard
             }
             handleClose(); // Close the modal
         } catch (error) {
