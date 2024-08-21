@@ -8,35 +8,33 @@ import RoomView from "./pages/RoomView.jsx";
 import Contact from "./pages/Contact.jsx";
 import MainLayout from './pages/MainLayout.jsx';
 import Dashboard from "./pages/Dashboard.jsx";
+import ListNearbyAttraction from './pages/features/nearby-attraction/ListNearbyAttraction.jsx';
+import AddNearbyAttraction from './pages/features/nearby-attraction/AddNearbyAttraction.jsx';
+import UpdateNearbyAttraction from './pages/features/nearby-attraction/UpdateNearbyAttraction.jsx';
 
 const App = () => {
-  // Assume you have a way to determine the user's role
-  const role = "Admin"; // This should come from your authentication context or state
+  const role = localStorage.getItem('role');
 
   return (
       <main>
         <BrowserRouter>
-
           <Routes>
             {/* Non-Admin Routes */}
             <Route element={<MainLayout />}>
               <Route path="/" element={<Home />} />
-              {/*<Route path="login" element={<Login />} />*/}
-              {/*<Route path="new-password" element={<NewPassword />} />*/}
               <Route path="/room/:id" element={<RoomDetails />} />
               <Route path="/restaurant" element={<Restaurant />} />
               <Route path="/attractions" element={<NearbyAttraction />} />
               <Route path="/rooms" element={<RoomView />} />
               <Route path="/contact" element={<Contact />} />
-              {/*<Route path="/my-bookings" element={<MyBookings />} />*/}
             </Route>
 
-             {/*Admin Routes*/}
+            {/* Admin Routes */}
             {role === "Admin" && (
                 <Route path="/dashboard" element={<Dashboard />}>
-                  {/*<Route path="attractions" element={<ListNearbyAttraction />} />*/}
-                  {/*<Route path="attractions/add" element={<AddNearbyAttraction />} />*/}
-                  {/*<Route path="attractions/update/:id" element={<UpdateNearbyAttraction />} />*/}
+                  <Route path="list-attractions" element={<ListNearbyAttraction />} />
+                  <Route path="attractions/add" element={<AddNearbyAttraction />} />
+                  <Route path="attractions/update/:id" element={<UpdateNearbyAttraction />} />
                 </Route>
             )}
 

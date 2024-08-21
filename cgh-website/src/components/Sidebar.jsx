@@ -79,10 +79,10 @@ const Sidebar = () => {
                 <SidebarLink to="/dashboard">
                     <FaChartLine /> Dashboard
                 </SidebarLink>
-                <SidebarLink to="/product">
+                <SidebarLink to="/list-rooms">
                     <FaShoppingCart /> Rooms
                 </SidebarLink>
-                <SidebarLink to="/blog">
+                <SidebarLink to="/dashboard/list-attractions">
                     <FaBlog /> Nearby Attractions
                 </SidebarLink>
                 <SidebarLink to="/user">

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, Outlet, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import Sidebar from '../components/Sidebar'; // Import Sidebar component
+import Sidebar from '../components/Sidebar';
 
 const LayoutContainer = styled.div`
   display: flex;
@@ -77,10 +77,11 @@ const Widget = styled.div`
   }
 `;
 
-function Dashboard() {
+const Dashboard = () => {
     const navigate = useNavigate();
     const role = localStorage.getItem('role');
-    const email = localStorage.getItem('email');
+    const location = useLocation();
+    const pathParts = location.pathname.split('/').filter(part => part);
 
     useEffect(() => {
         if (role !== 'Admin') {
@@ -92,14 +93,23 @@ function Dashboard() {
         return null;
     }
 
+    const breadcrumbLinks = [
+        { path: '/', label: 'Home' },
+        { path: '/dashboard', label: 'Dashboard' },
+        ...(pathParts.length > 1 ? [{ path: `/${pathParts.join('/')}`, label: pathParts.slice(-1)[0].replace(/-/g, ' ').toUpperCase() }] : [])
+    ];
+
     return (
         <LayoutContainer>
-            <Sidebar /> {/* Sidebar is included in the layout */}
+            <Sidebar />
             <DashboardContainer>
                 <Breadcrumb>
-                    <Link to="/">Home</Link>
-                    <span>&gt;</span>
-                    <Link to="/dashboard">Dashboard</Link>
+                    {breadcrumbLinks.map((link, index) => (
+                        <React.Fragment key={link.path}>
+                            <Link to={link.path}>{link.label}</Link>
+                            {index < breadcrumbLinks.length - 1 && <span>&gt;</span>}
+                        </React.Fragment>
+                    ))}
                 </Breadcrumb>
                 <Header>
                     <h1>Welcome, Admin 👋</h1>
@@ -122,9 +132,10 @@ function Dashboard() {
                         <span>234</span>
                     </Widget>
                 </WidgetsContainer>
+                <Outlet /> {/* This will render child routes */}
             </DashboardContainer>
         </LayoutContainer>
     );
-}
+};
 
 export default Dashboard;
