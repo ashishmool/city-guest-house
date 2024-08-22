@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify'; // Import toast
 import { saveAttraction } from '../../../services/nearbyAttraction';
 import styled from 'styled-components';
 
@@ -35,8 +36,12 @@ const AddNearbyAttraction = () => {
     const [attractionData, setAttractionData] = useState({
         name: '',
         description: '',
+        location: '',
+        contact: '',
+        website: '',
         image: null,
     });
+
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -52,9 +57,19 @@ const AddNearbyAttraction = () => {
         const formData = new FormData();
         formData.append('name', attractionData.name);
         formData.append('description', attractionData.description);
+        formData.append('location', attractionData.location); // Ensure location is included
+        formData.append('contact', attractionData.contact);   // Include contact if needed
+        formData.append('website', attractionData.website);   // Include website
         formData.append('image', attractionData.image);
-        await saveAttraction(formData);
-        navigate('/nearby-attractions'); // Redirect back to the list
+
+        try {
+            await saveAttraction(formData);
+            toast.success('Attraction added successfully!'); // Show success toast
+            navigate('/dashboard/list-attractions'); // Redirect after successful submission
+        } catch (error) {
+            console.error("Failed to save the attraction:", error);
+            toast.error('Failed to add the attraction. Please try again.'); // Show error toast
+        }
     };
 
     return (
@@ -76,6 +91,28 @@ const AddNearbyAttraction = () => {
                     value={attractionData.description}
                     onChange={handleChange}
                     required
+                />
+                <Input
+                    type="text"
+                    name="location"
+                    placeholder="Location"
+                    value={attractionData.location}
+                    onChange={handleChange}
+                    required
+                />
+                <Input
+                    type="text"
+                    name="contact"
+                    placeholder="Contact"
+                    value={attractionData.contact}
+                    onChange={handleChange}
+                />
+                <Input
+                    type="text"
+                    name="website"
+                    placeholder="Website"
+                    value={attractionData.website}
+                    onChange={handleChange}
                 />
                 <Input
                     type="file"

@@ -1,3 +1,4 @@
+// Sidebar.jsx
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -12,6 +13,7 @@ const SidebarContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex-shrink: 0; /* Prevents shrinking */
 `;
 
 const SidebarLink = styled(Link)`
@@ -90,11 +92,10 @@ const Sidebar = () => {
                 </SidebarLink>
             </div>
             <SidebarFooter>
-                {/* Logout button */}
                 <LogoutLink onClick={handleLogout}>
                     <FaSignOutAlt /> Logout
                 </LogoutLink>
-                <p>©2024 City Guest House</p>
+                <p>© City Guest House</p>
             </SidebarFooter>
         </SidebarContainer>
     );

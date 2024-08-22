@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link, Outlet, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Sidebar from '../components/Sidebar';
+import { getAllRooms } from '../services/roomService';
+import { fetchAttractions } from '../services/nearbyAttraction';
 
 const LayoutContainer = styled.div`
   display: flex;
@@ -12,7 +14,7 @@ const DashboardContainer = styled.div`
   padding: 20px;
   background-color: #f9fafc;
   flex-grow: 1;
-  overflow-y: auto; // Allow scrolling for the dashboard content
+  overflow-y: auto;
 `;
 
 const Header = styled.div`
@@ -83,20 +85,44 @@ const Dashboard = () => {
     const location = useLocation();
     const pathParts = location.pathname.split('/').filter(part => part);
 
+    const [roomCount, setRoomCount] = useState(0);
+    const [attractionCount, setAttractionCount] = useState(0);
+
+    const fetchCounts = async () => {
+        try {
+            const rooms = await getAllRooms();
+            setRoomCount(rooms.length);
+
+            const attractions = await fetchAttractions();
+            setAttractionCount(attractions.length);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
     useEffect(() => {
         if (role !== 'Admin') {
             navigate('/unauthorized');
         }
     }, [role, navigate]);
 
-    if (role !== 'Admin') {
-        return null;
-    }
+    useEffect(() => {
+        fetchCounts();
+    }, []);
+
+    const capitalizeWords = (str) => {
+        return str
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
+    };
 
     const breadcrumbLinks = [
         { path: '/', label: 'Home' },
         { path: '/dashboard', label: 'Dashboard' },
-        ...(pathParts.length > 1 ? [{ path: `/${pathParts.join('/')}`, label: pathParts.slice(-1)[0].replace(/-/g, ' ').toUpperCase() }] : [])
+        ...(pathParts.length > 1
+            ? [{ path: `/${pathParts.join('/')}`, label: capitalizeWords(pathParts.slice(-1)[0].replace(/-/g, ' ')) }]
+            : [])
     ];
 
     return (
@@ -116,12 +142,12 @@ const Dashboard = () => {
                 </Header>
                 <WidgetsContainer>
                     <Widget>
-                        <h3>Weekly Sales</h3>
-                        <span>714k</span>
+                        <h3>Rooms</h3>
+                        <span>{roomCount}</span>
                     </Widget>
                     <Widget>
-                        <h3>New Users</h3>
-                        <span>1.35m</span>
+                        <h3>Nearby Attractions</h3>
+                        <span>{attractionCount}</span>
                     </Widget>
                     <Widget>
                         <h3>Item Orders</h3>
@@ -132,7 +158,7 @@ const Dashboard = () => {
                         <span>234</span>
                     </Widget>
                 </WidgetsContainer>
-                <Outlet /> {/* This will render child routes */}
+                <Outlet context={{ fetchCounts }} /> {/* Pass fetchCounts to child components */}
             </DashboardContainer>
         </LayoutContainer>
     );
