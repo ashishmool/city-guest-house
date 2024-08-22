@@ -1,27 +1,26 @@
 package com.cityguesthouse.cgh.pojo;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class MenuPojo {
 
     private Long id;
 
-    @NotBlank(message = "Menu item name is required")
+    @NotBlank(message = "Name is required")
     private String name;
 
+    @NotBlank(message = "Description is required")
     private String description;
 
     @NotBlank(message = "Price is required")
     private String price;
 
-    @NotBlank(message = "Category is required")
-    private String category;
+    @NotNull(message = "Category is required")
+    private Long categoryId; // Change from String to Long for categoryId
 }

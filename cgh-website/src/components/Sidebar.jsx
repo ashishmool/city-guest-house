@@ -2,7 +2,8 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { FaUser, FaShoppingCart, FaBlog, FaChartLine, FaSignOutAlt } from 'react-icons/fa';
+import { FaUser, FaBed, FaBuilding, FaChartLine, FaSignOutAlt } from 'react-icons/fa';
+import {FaBowlFood} from "react-icons/fa6";
 
 const SidebarContainer = styled.div`
   width: 250px;
@@ -82,10 +83,13 @@ const Sidebar = () => {
                     <FaChartLine /> Dashboard
                 </SidebarLink>
                 <SidebarLink to="/list-rooms">
-                    <FaShoppingCart /> Rooms
+                    <FaBed /> Rooms
+                </SidebarLink>
+                <SidebarLink to="/dashboard/list-restaurants">
+                    <FaBowlFood /> Menu
                 </SidebarLink>
                 <SidebarLink to="/dashboard/list-attractions">
-                    <FaBlog /> Nearby Attractions
+                    <FaBuilding /> Nearby Attractions
                 </SidebarLink>
                 <SidebarLink to="/user">
                     <FaUser /> System Users

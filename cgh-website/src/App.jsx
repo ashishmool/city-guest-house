@@ -11,14 +11,15 @@ import Dashboard from './pages/Dashboard';
 import ListNearbyAttraction from './pages/features/nearby-attraction/ListNearbyAttraction';
 import AddNearbyAttraction from './pages/features/nearby-attraction/AddNearbyAttraction';
 import UpdateNearbyAttraction from './pages/features/nearby-attraction/UpdateNearbyAttraction';
+import ListRestaurant from './pages/features/restaurant/ListRestaurant';
+import AddRestaurant from './pages/features/restaurant/AddRestaurant';
+import UpdateRestaurant from './pages/features/restaurant/UpdateRestaurant';
 
 const ProtectedRoute = ({ children }) => {
     const role = localStorage.getItem('role');
-
     if (role !== "Admin") {
         return <Navigate to="/" replace />;
     }
-
     return children;
 };
 
@@ -40,6 +41,9 @@ const App = () => (
                 <Route path="list-attractions" element={<ListNearbyAttraction />} />
                 <Route path="attractions/add" element={<AddNearbyAttraction />} />
                 <Route path="attractions/update/:id" element={<UpdateNearbyAttraction />} />
+                <Route path="list-restaurants" element={<ListRestaurant />} />
+                <Route path="restaurant/add" element={<AddRestaurant />} />
+                <Route path="restaurant/update/:id" element={<UpdateRestaurant />} />
             </Route>
 
             {/* 404 Page */}

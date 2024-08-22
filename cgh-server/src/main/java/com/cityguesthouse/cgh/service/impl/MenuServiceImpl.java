@@ -24,11 +24,9 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public String save(MenuPojo menuPojo) {
         Menu menu = new Menu();
-        Category category = categoryRepo.findByName(menuPojo.getCategory());
 
-        if (category == null) {
-            throw new EntityNotFoundException("Category not found: " + menuPojo.getCategory());
-        }
+        Category category = categoryRepo.findById(menuPojo.getCategoryId())
+                .orElseThrow(() -> new EntityNotFoundException("Category not found with ID: " + menuPojo.getCategoryId()));
 
         if (menuPojo.getId() != null) {
             menu = menuRepo.findById(menuPojo.getId())
@@ -85,10 +83,8 @@ public class MenuServiceImpl implements MenuService {
         Menu existingMenu = menuRepo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Menu item not found with ID: " + id));
 
-        Category category = categoryRepo.findByName(menuPojo.getCategory());
-        if (category == null) {
-            throw new EntityNotFoundException("Category not found: " + menuPojo.getCategory());
-        }
+        Category category = categoryRepo.findById(menuPojo.getCategoryId())
+                .orElseThrow(() -> new EntityNotFoundException("Category not found with ID: " + menuPojo.getCategoryId()));
 
         existingMenu.setName(menuPojo.getName());
         existingMenu.setDescription(menuPojo.getDescription());
