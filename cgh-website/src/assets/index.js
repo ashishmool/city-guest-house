@@ -20,26 +20,20 @@ import BalconyRoom from './img/rooms/bl-1.jpg';
 import DeluxeRoom from './img/rooms/dl-2.jpg';
 import BudgetRoom from './img/rooms/bs-1.jpg';
 
-import Slider1 from './img/heroSlider/1.jpg';
-import Slider2 from './img/heroSlider/2.jpg';
-import Slider3 from './img/heroSlider/3.jpg';
-import Slider4 from './img/heroSlider/4.jpg';
-import Slider5 from './img/heroSlider/5.jpg';
-import Slider6 from './img/heroSlider/6.jpg';
-import Slider7 from './img/heroSlider/7.jpg';
+
+
+import BackyardGarden from './img/heroSlider/backyard-garden.jpg';
+import RooftopRestaurant from './img/heroSlider/rooftop-restaurant.jpg';
+import ContemporaryRooms from './img/heroSlider/contemporary-rooms.jpg';
 
 export { ReactComponent as LogoDark } from './img/logo.svg';
 export { ReactComponent as LogoWhite } from './img/logo-white.svg';
 export { ReactComponent as FooterLogo } from './img/logo-w.svg';
 
 const images = {
-    Slider1,
-    Slider2,
-    Slider3,
-    Slider4,
-    Slider5,
-    Slider6,
-    Slider7,
+    BackyardGarden,
+    RooftopRestaurant,
+    ContemporaryRooms,
     Room1Img,
     Room2Img,
     Room3Img,

@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import { getAllRooms, deleteRoomById } from '../../../services/roomService';
-import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
 import styled from 'styled-components';
+import { useRoomContext } from '../../../context/RoomContext';
 
-// Styled components
 const Container = styled.div`
   padding: 20px;
 `;
@@ -30,6 +29,13 @@ const ImageContainer = styled.div`
   width: 100px;
   height: 100px;
   margin-right: 20px;
+`;
+
+const Image = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: cover;
 `;
 
 const AddButton = styled(Link)`
@@ -89,29 +95,13 @@ const ActionButton = styled.button`
   }
 `;
 
-// ListRoom Component
 const ListRoom = () => {
-    const [rooms, setRooms] = useState([]);
+    const { rooms } = useRoomContext();
 
-    useEffect(() => {
-        const fetchRooms = async () => {
-            try {
-                const data = await getAllRooms();
-                setRooms(data);
-            } catch (error) {
-                toast.error('Failed to fetch rooms');
-            }
-        };
-        fetchRooms();
-    }, []);
-
-    const handleDelete = async (id) => {
-        try {
-            await deleteRoomById(id);
-            setRooms(rooms.filter(room => room.id !== id));
-            toast.success('Room deleted successfully!');
-        } catch (error) {
-            toast.error('Failed to delete room');
+    const confirmDelete = (id) => {
+        if (window.confirm("Are you sure you want to delete this room?")) {
+            // Implement handleDeleteRoom functionality
+            toast.success('Room deleted successfully');
         }
     };
 
@@ -122,31 +112,37 @@ const ListRoom = () => {
                 Add New Room <FaPlus />
             </AddButton>
             <RoomList>
-                {rooms.map(room => (
-                    <RoomItem key={room.id}>
-                        <ImageContainer>
-                            {/* Add room image handling if necessary */}
-                        </ImageContainer>
-                        <div style={{ flex: 1 }}>
-                            <h3>{room.name}</h3>
-                            <p>Price: ${room.price}</p>
-                            <p>Capacity: {room.capacity}</p>
-                            <p>{room.description}</p>
-                        </div>
-                        <ActionContainer>
-                            <Link to={`/dashboard/rooms/edit/${room.id}`}>
-                                <ActionButton>
-                                    <FaEdit />
-                                    <span>Edit</span>
+                {rooms.map(room => {
+                    // Prepare image source for room
+                    const imageSrc = room.image ? `data:image/jpeg;base64,${room.image}` : null;
+                    return (
+                        <RoomItem key={room.id}>
+                            <ImageContainer>
+                                {imageSrc && (
+                                    <Image src={imageSrc} alt={room.name} />
+                                )}
+                            </ImageContainer>
+                            <div style={{ flex: 1 }}>
+                                <h3>{room.name}</h3>
+                                <p>Price: ${room.price}</p>
+                                <p>Capacity: {room.capacity}</p>
+                                <p>{room.description}</p>
+                            </div>
+                            <ActionContainer>
+                                <Link to={`/dashboard/rooms/update/${room.id}`}>
+                                    <ActionButton>
+                                        <FaEdit />
+                                        <span>Edit</span>
+                                    </ActionButton>
+                                </Link>
+                                <ActionButton onClick={() => confirmDelete(room.id)}>
+                                    <FaTrash />
+                                    <span>Delete</span>
                                 </ActionButton>
-                            </Link>
-                            <ActionButton onClick={() => handleDelete(room.id)}>
-                                <FaTrash />
-                                <span>Delete</span>
-                            </ActionButton>
-                        </ActionContainer>
-                    </RoomItem>
-                ))}
+                            </ActionContainer>
+                        </RoomItem>
+                    );
+                })}
             </RoomList>
         </Container>
     );

@@ -22,7 +22,7 @@ const HeroSlider = () => {
                     <SwiperSlide className='h-full relative flex justify-center items-center' key={id}>
 
                         <div className='z-20 text-white text-center'>
-                            <div className='uppercase font-tertiary tracking-[6px] mb-5'>Relax in the Heart of Bhaktapur</div>
+                            <div className='uppercase font-tertiary tracking-[6px] mb-5'>City Guest House</div>
                             <h1 className='font-primary text-[32px] uppercase tracking-[2px] max-w-[920px] lg:text-[68px] leading-tight mb-6'>
                                 {title}
                             </h1>

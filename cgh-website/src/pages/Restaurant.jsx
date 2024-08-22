@@ -86,7 +86,7 @@ const Restaurant = () => {
                             <div className='w-full lg:w-[40%] h-full'>
                                 {/* Image Section */}
                                 <div className='mb-0'>
-                                    <img src='src/assets/img/waiter.png' alt='Waiter' className='w-full h-auto' />
+                                    <img src='src/assets/img/rooftop-restaurant.jpg' alt='Waiter' className='w-full h-auto' />
                                 </div>
 
                                 {/* Restaurant Info */}
