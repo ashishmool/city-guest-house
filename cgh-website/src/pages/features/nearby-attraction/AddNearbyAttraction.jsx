@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify'; // Import toast
+import { useNavigate, useOutletContext } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { saveAttraction } from '../../../services/nearbyAttraction';
 import styled from 'styled-components';
 
@@ -43,6 +43,7 @@ const AddNearbyAttraction = () => {
     });
 
     const navigate = useNavigate();
+    const { fetchCounts } = useOutletContext(); // Access fetchCounts from context
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
@@ -65,6 +66,7 @@ const AddNearbyAttraction = () => {
         try {
             await saveAttraction(formData);
             toast.success('Attraction added successfully!'); // Show success toast
+            fetchCounts(); // Update attraction count in the dashboard
             navigate('/dashboard/list-attractions'); // Redirect after successful submission
         } catch (error) {
             console.error("Failed to save the attraction:", error);

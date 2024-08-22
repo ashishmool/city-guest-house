@@ -14,10 +14,12 @@ import UpdateNearbyAttraction from './pages/features/nearby-attraction/UpdateNea
 import ListRestaurant from './pages/features/restaurant/ListRestaurant';
 import AddRestaurant from './pages/features/restaurant/AddRestaurant';
 import UpdateRestaurant from './pages/features/restaurant/UpdateRestaurant';
+import { AttractionProvider } from './context/AttractionContext.jsx';
+import { RestaurantProvider } from './context/RestaurantContext.jsx';
 
 const ProtectedRoute = ({ children }) => {
     const role = localStorage.getItem('role');
-    if (role !== "Admin") {
+    if (role !== 'Admin') {
         return <Navigate to="/" replace />;
     }
     return children;
@@ -37,13 +39,63 @@ const App = () => (
             </Route>
 
             {/* Admin Routes */}
-            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}>
-                <Route path="list-attractions" element={<ListNearbyAttraction />} />
-                <Route path="attractions/add" element={<AddNearbyAttraction />} />
-                <Route path="attractions/update/:id" element={<UpdateNearbyAttraction />} />
-                <Route path="list-restaurants" element={<ListRestaurant />} />
-                <Route path="restaurant/add" element={<AddRestaurant />} />
-                <Route path="restaurant/update/:id" element={<UpdateRestaurant />} />
+            <Route
+                path="/dashboard"
+                element={
+                    <ProtectedRoute>
+                        <Dashboard />
+                    </ProtectedRoute>
+                }
+            >
+                {/* Wrapping with context providers outside of Route components */}
+                <Route
+                    path="list-attractions"
+                    element={
+                        <AttractionProvider>
+                            <ListNearbyAttraction />
+                        </AttractionProvider>
+                    }
+                />
+                <Route
+                    path="attractions/add"
+                    element={
+                        <AttractionProvider>
+                            <AddNearbyAttraction />
+                        </AttractionProvider>
+                    }
+                />
+                <Route
+                    path="attractions/update/:id"
+                    element={
+                        <AttractionProvider>
+                            <UpdateNearbyAttraction />
+                        </AttractionProvider>
+                    }
+                />
+                <Route
+                    path="list-restaurants"
+                    element={
+                        <RestaurantProvider>
+                            <ListRestaurant />
+                        </RestaurantProvider>
+                    }
+                />
+                <Route
+                    path="restaurant/add"
+                    element={
+                        <RestaurantProvider>
+                            <AddRestaurant />
+                        </RestaurantProvider>
+                    }
+                />
+                <Route
+                    path="restaurant/update/:id"
+                    element={
+                        <RestaurantProvider>
+                            <UpdateRestaurant />
+                        </RestaurantProvider>
+                    }
+                />
             </Route>
 
             {/* 404 Page */}

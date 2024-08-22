@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Sidebar from '../components/Sidebar';
 import { getAllRooms } from '../services/roomService';
 import { fetchAttractions } from '../services/nearbyAttraction';
+import { getAllMenus } from '../services/restaurantService'; // Import the menu service
 
 const LayoutContainer = styled.div`
   display: flex;
@@ -87,6 +88,7 @@ const Dashboard = () => {
 
     const [roomCount, setRoomCount] = useState(0);
     const [attractionCount, setAttractionCount] = useState(0);
+    const [menuCount, setMenuCount] = useState(0); // New state for menu count
 
     const fetchCounts = async () => {
         try {
@@ -95,6 +97,9 @@ const Dashboard = () => {
 
             const attractions = await fetchAttractions();
             setAttractionCount(attractions.length);
+
+            const menus = await getAllMenus(); // Fetch menu items
+            setMenuCount(menus.length); // Set menu count
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -150,8 +155,8 @@ const Dashboard = () => {
                         <span>{attractionCount}</span>
                     </Widget>
                     <Widget>
-                        <h3>Item Orders</h3>
-                        <span>1.72m</span>
+                        <h3>Menu Items</h3> {/* Updated title */}
+                        <span>{menuCount}</span> {/* Dynamic count */}
                     </Widget>
                     <Widget>
                         <h3>Bug Reports</h3>

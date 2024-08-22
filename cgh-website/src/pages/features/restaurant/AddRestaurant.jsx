@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { saveMenu, getAllCategories } from '../../../services/restaurantService';
+import { useRestaurant } from '../../../context/RestaurantContext';
+import { getAllCategories } from '../../../services/restaurantService';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 
@@ -44,6 +45,7 @@ const Button = styled.button`
 `;
 
 const AddRestaurant = () => {
+    const { addMenu } = useRestaurant(); // Use context to add the menu
     const [menuData, setMenuData] = useState({
         name: '',
         price: '',
@@ -72,12 +74,11 @@ const AddRestaurant = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Ensure categoryId is passed correctly
             const payload = {
                 ...menuData,
-                categoryId: Number(menuData.categoryId) // Convert to number if needed
+                categoryId: Number(menuData.categoryId)
             };
-            await saveMenu(payload);
+            await addMenu(payload); // Use context function to add the menu
             toast.success('Menu item added successfully');
             setMenuData({
                 name: '',

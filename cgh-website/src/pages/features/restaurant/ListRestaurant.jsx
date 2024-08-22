@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getMenusWithCategoryNames, deleteMenuById } from '../../../services/restaurantService';
-import { Link } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom'; // Import useOutletContext here
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
@@ -84,6 +84,7 @@ const ActionButton = styled.button`
 
 const ListRestaurant = () => {
     const [menus, setMenus] = useState([]);
+    const { fetchCounts } = useOutletContext(); // Get fetchCounts from context
 
     useEffect(() => {
         const fetchData = async () => {
@@ -103,6 +104,7 @@ const ListRestaurant = () => {
                 await deleteMenuById(id);
                 setMenus(menus.filter(menu => menu.id !== id));
                 toast.success('Menu item deleted successfully');
+                fetchCounts(); // Trigger count update in the dashboard
             } catch (error) {
                 toast.error('Failed to delete menu item');
             }

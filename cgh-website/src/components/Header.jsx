@@ -22,9 +22,10 @@ const Header = () => {
     };
   }, []);
 
-  // Determine if user is logged in and get email
+  // Determine if user is logged in and get email and role
   const accessToken = localStorage.getItem('accessToken');
   const userEmail = localStorage.getItem('email');
+  const userRole = localStorage.getItem('role');
   const isLoggedIn = accessToken !== null;
 
   // Handle user logout
@@ -33,8 +34,10 @@ const Header = () => {
     window.location.href = '/'; // Redirect to the home page or login page
   };
 
-  // Updated navLinks to include correct paths
-  const navLinks = [
+  // Conditionally set navLinks based on user role
+  const navLinks = userRole === 'Admin' ? [
+    { name: 'Dashboard', path: '/dashboard' }
+  ] : [
     { name: 'Home', path: '/' },
     { name: 'Rooms', path: '/rooms' },
     { name: 'Restaurant', path: '/restaurant' },
