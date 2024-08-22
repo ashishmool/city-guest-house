@@ -1,9 +1,12 @@
+// RoomContext.jsx
 import { createContext, useContext, useEffect, useState } from "react";
 import { getAllRooms } from "../services/roomService";
 
-const RoomInfo = createContext();
+// Create the context
+const RoomContext = createContext();
 
-export const RoomContext = ({ children }) => {
+// Create a provider component
+export const RoomProvider = ({ children }) => {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(false);
   const [adults, setAdults] = useState('1 Adult');
@@ -51,15 +54,17 @@ export const RoomContext = ({ children }) => {
     }, 3000);
   };
 
+  // Shared state and functions
   const shareWithChildren = {
     rooms, loading, adults, setAdults, kids, setKids, handleCheck, resetRoomFilterData,
   };
 
   return (
-      <RoomInfo.Provider value={shareWithChildren}>
+      <RoomContext.Provider value={shareWithChildren}>
         {children}
-      </RoomInfo.Provider>
+      </RoomContext.Provider>
   );
 };
 
-export const useRoomContext = () => useContext(RoomInfo);
+// Custom hook to use the RoomContext
+export const useRoomContext = () => useContext(RoomContext);

@@ -14,8 +14,12 @@ import UpdateNearbyAttraction from './pages/features/nearby-attraction/UpdateNea
 import ListRestaurant from './pages/features/restaurant/ListRestaurant';
 import AddRestaurant from './pages/features/restaurant/AddRestaurant';
 import UpdateRestaurant from './pages/features/restaurant/UpdateRestaurant';
+import ListRoom from './pages/features/room/ListRoom'; // Import ListRoom
+import AddRoom from './pages/features/room/AddRoom'; // Import AddRoom
+import UpdateRoom from './pages/features/room/UpdateRoom'; // Import UpdateRoom
 import { AttractionProvider } from './context/AttractionContext.jsx';
 import { RestaurantProvider } from './context/RestaurantContext.jsx';
+import { RoomProvider } from './context/RoomContext.jsx'; // Import RoomProvider
 
 const ProtectedRoute = ({ children }) => {
     const role = localStorage.getItem('role');
@@ -43,11 +47,13 @@ const App = () => (
                 path="/dashboard"
                 element={
                     <ProtectedRoute>
-                        <Dashboard />
+                        <RoomProvider> {/* Wrap Dashboard with RoomProvider */}
+                            <Dashboard />
+                        </RoomProvider>
                     </ProtectedRoute>
                 }
             >
-                {/* Wrapping with context providers outside of Route components */}
+                {/* Wrapping with context providers inside of Route components */}
                 <Route
                     path="list-attractions"
                     element={
@@ -94,6 +100,30 @@ const App = () => (
                         <RestaurantProvider>
                             <UpdateRestaurant />
                         </RestaurantProvider>
+                    }
+                />
+                <Route
+                    path="list-rooms"
+                    element={
+                        <RoomProvider> {/* Wrap ListRoom with RoomProvider */}
+                            <ListRoom />
+                        </RoomProvider>
+                    }
+                />
+                <Route
+                    path="rooms/add"
+                    element={
+                        <RoomProvider> {/* Wrap AddRoom with RoomProvider */}
+                            <AddRoom />
+                        </RoomProvider>
+                    }
+                />
+                <Route
+                    path="rooms/update/:id"
+                    element={
+                        <RoomProvider> {/* Wrap UpdateRoom with RoomProvider */}
+                            <UpdateRoom />
+                        </RoomProvider>
                     }
                 />
             </Route>

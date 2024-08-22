@@ -6,6 +6,7 @@ import { getAllRooms } from '../services/roomService';
 import { fetchAttractions } from '../services/nearbyAttraction';
 import { getAllMenus } from '../services/restaurantService'; // Import the menu service
 
+
 const LayoutContainer = styled.div`
   display: flex;
   height: 100vh;
@@ -163,6 +164,8 @@ const Dashboard = () => {
                         <span>234</span>
                     </Widget>
                 </WidgetsContainer>
+
+
                 <Outlet context={{ fetchCounts }} /> {/* Pass fetchCounts to child components */}
             </DashboardContainer>
         </LayoutContainer>

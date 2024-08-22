@@ -1,4 +1,4 @@
-import { RoomContext } from './context/RoomContext';
+import { RoomProvider } from './context/RoomContext';
 import ReactDOM from 'react-dom/client'
 import React from 'react'
 import { ToastContainer } from 'react-toastify';
@@ -12,10 +12,10 @@ import './style/index.css';
 ReactDOM
   .createRoot(document.getElementById('root'))
   .render(
-    <RoomContext>
+    <RoomProvider>
       <React.StrictMode>
         <App />
           <ToastContainer />
       </React.StrictMode>
-    </RoomContext>,
+    </RoomProvider>,
   )

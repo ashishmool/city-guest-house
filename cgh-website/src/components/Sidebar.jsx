@@ -82,7 +82,7 @@ const Sidebar = () => {
                 <SidebarLink to="/dashboard">
                     <FaChartLine /> Dashboard
                 </SidebarLink>
-                <SidebarLink to="/list-rooms">
+                <SidebarLink to="/dashboard/list-rooms">
                     <FaBed /> Rooms
                 </SidebarLink>
                 <SidebarLink to="/dashboard/list-restaurants">
