@@ -76,10 +76,7 @@ const Restaurant = () => {
                                 ) : (
                                     <p>No menu categories available.</p>
                                 )}
-                                {/* Note Section */}
-                                <div className='mt-8 text-left'>
-                                    <p className='text-sm text-gray-600'>Important Note: Price includes all taxes and charges.</p>
-                                </div>
+
                             </div>
 
                             {/* Right Side: Restaurant Rules and Info */}
@@ -98,6 +95,11 @@ const Restaurant = () => {
                                     <button className='btn btn-lg btn-primary w-full'>
                                         Reserve a Table
                                     </button>
+
+                                    {/* Note Section */}
+                                    <div className='mt-8 text-left'>
+                                        <p className='text-sm text-center text-gray-600'>Please Note: Price includes all taxes and charges.</p>
+                                    </div>
                                 </div>
 
                                 {/* Restaurant Rules */}

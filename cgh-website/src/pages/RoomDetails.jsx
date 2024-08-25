@@ -120,8 +120,7 @@ const RoomDetails = () => {
               <p className='mb-8'>{description}</p>
               <img className='mb-8' src={`data:image/jpeg;base64,${image}`} alt="roomImg" />
               <div className='mt-12'>
-                <h3 className='h3 mb-3'></h3>
-                <p className='mb-12'> Amenities: </p>
+                <h3 className='h3 mb-3'>Amenities:</h3>
                 {/* icons grid */}
                 <div className="grid grid-cols-3 gap-6 mb-12">
                   {facilities.map((item) => (
