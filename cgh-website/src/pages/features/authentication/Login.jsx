@@ -3,6 +3,7 @@ import axios from 'axios';
 import ResetPassword from './ResetPassword.jsx'; // Import ResetPassword component
 import Signup from './Signup.jsx'; // Import Signup component
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { toast } from 'react-toastify';
 
 const Login = ({ onClose }) => {
     const [email, setEmail] = useState('');
@@ -37,6 +38,7 @@ const Login = ({ onClose }) => {
             handleClose(); // Close the modal
         } catch (error) {
             console.error("Authentication Failed!", error);
+            toast.error("Something is not quite right. Retry!")
             // Optionally, handle the error with a user notification
         } finally {
             setIsLoading(false);

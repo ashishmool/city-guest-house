@@ -25,7 +25,7 @@ const Contact = () => {
                         <p className='mb-8 text-justify'>
                             We're here to assist you with any inquiries or requests you may have. Please fill out the form below, and we’ll get back to you as soon as possible.
                         </p>
-                        <form action="https://formspree.io/f/yourformid" method="POST">
+                        <form action="https://formspree.io/f/mvgpdyoz" method="POST">
                             <div className='mb-4'>
                                 <label htmlFor='name' className='block text-lg mb-2'>Name</label>
                                 <input

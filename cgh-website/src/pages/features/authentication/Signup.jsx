@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify'; // Import toast from react-toastify
-
+import axios from 'axios'; // Import axios for HTTP requests
 
 const Signup = ({ onClose }) => {
     const [firstName, setFirstName] = useState('');
@@ -8,33 +8,55 @@ const Signup = ({ onClose }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSignup = async (e) => {
         e.preventDefault();
 
         if (password !== confirmPassword) {
-            alert('Passwords do not match');
+            toast.error('Passwords do not match');
             return;
         }
 
+        setIsLoading(true);
+
         try {
-            const response = await fetch('http://localhost:8080/system-user/save', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ firstName, lastName, email, password }),
+            // Signup API request
+            const signupResponse = await axios.post('http://localhost:8080/system-user/save', {
+                firstName,
+                lastName,
+                email,
+                password
             });
 
-            if (response.ok) {
-                toast.success('Signup successful!');
-                onClose(); // Close modal on successful signup
-            } else {
-                const errorData = await response.json();
-                toast.error(`Signup error: ${errorData.message}`);
+            if (signupResponse.status === 200) {
+                toast.success('Signup successful! Logging in...');
+
+                // Login with newly created credentials
+                const loginResponse = await axios.post('http://localhost:8080/authenticate', {
+                    email,
+                    password
+                });
+
+                const userData = loginResponse?.data?.data;
+                localStorage.setItem("accessToken", userData?.token);
+                localStorage.setItem("userId", userData?.userId);
+                localStorage.setItem("email", userData?.email);
+                localStorage.setItem("role", userData?.role);
+
+                // Redirect after successful login
+                if (userData?.role === "Customer") {
+                    window.location.href = '/'; // Redirect to home page
+                } else if (userData?.role === "Admin") {
+                    window.location.href = '/dashboard'; // Redirect to admin dashboard
+                }
+
+                onClose(); // Close modal on successful login
             }
         } catch (error) {
-            toast.error('Signup failed. Please try again.');
+            toast.error('Signup or login failed. Please try again.');
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -103,8 +125,9 @@ const Signup = ({ onClose }) => {
                     <button
                         type='submit'
                         className='bg-primary text-white font-bold py-3 px-4 rounded w-full'
+                        disabled={isLoading}
                     >
-                        Sign Up
+                        {isLoading ? 'Signing Up...' : 'Sign Up'}
                     </button>
                 </form>
             </div>
