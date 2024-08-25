@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useRestaurant } from '../../../context/RestaurantContext';
-import { getAllCategories } from '../../../services/restaurantService';
+import {getAllCategories, saveMenu} from '../../../services/restaurantService';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
+import {useNavigate, useOutletContext} from "react-router-dom";
 
 const Container = styled.div`
   padding: 20px;
@@ -66,6 +67,9 @@ const AddRestaurant = () => {
         fetchCategories();
     }, []);
 
+    const navigate = useNavigate();
+    const { fetchCounts } = useOutletContext(); // Access fetchCounts from context
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setMenuData({ ...menuData, [name]: value });
@@ -78,7 +82,9 @@ const AddRestaurant = () => {
                 ...menuData,
                 categoryId: Number(menuData.categoryId)
             };
-            await addMenu(payload); // Use context function to add the menu
+            await saveMenu(payload); // Use context function to add the menu
+            fetchCounts(); // Update attraction count in the dashboard
+            navigate('/dashboard/list-restaurants'); // Redirect after successful submission
             toast.success('Menu item added successfully');
             setMenuData({
                 name: '',

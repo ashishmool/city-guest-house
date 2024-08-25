@@ -1,4 +1,3 @@
-// RoomContext.jsx
 import { createContext, useContext, useEffect, useState } from "react";
 import { getAllRooms } from "../services/roomService";
 
@@ -9,23 +8,26 @@ const RoomContext = createContext();
 export const RoomProvider = ({ children }) => {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [count, setCount] = useState(0); // New count state
   const [adults, setAdults] = useState('1 Adult');
   const [kids, setKids] = useState('0 Kid');
   const [total, setTotal] = useState(1);
 
+  const fetchCounts = async () => {
+    setLoading(true);
+    try {
+      const data = await getAllRooms();
+      setRooms(data);
+      setCount(data.length); // Set the count based on the number of rooms
+    } catch (error) {
+      console.error('Error fetching rooms:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchRooms = async () => {
-      setLoading(true);
-      try {
-        const data = await getAllRooms();
-        setRooms(data);
-      } catch (error) {
-        console.error('Error fetching rooms:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchRooms();
+    fetchCounts(); // Fetch rooms and counts on mount
   }, []);
 
   useEffect(() => {
@@ -35,14 +37,7 @@ export const RoomProvider = ({ children }) => {
   const resetRoomFilterData = () => {
     setAdults('1 Adult');
     setKids('0 Kid');
-    setLoading(true);
-    getAllRooms().then(data => {
-      setRooms(data);
-      setLoading(false);
-    }).catch(error => {
-      console.error('Error resetting rooms:', error);
-      setLoading(false);
-    });
+    fetchCounts(); // Reset and refetch rooms and counts
   };
 
   const handleCheck = ({ checkInDate, checkOutDate }) => {
@@ -56,7 +51,7 @@ export const RoomProvider = ({ children }) => {
 
   // Shared state and functions
   const shareWithChildren = {
-    rooms, loading, adults, setAdults, kids, setKids, handleCheck, resetRoomFilterData,
+    rooms, loading, count, adults, setAdults, kids, setKids, handleCheck, resetRoomFilterData, fetchCounts,
   };
 
   return (

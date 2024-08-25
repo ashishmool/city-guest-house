@@ -1,9 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Link, useOutletContext} from 'react-router-dom';
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { useRoomContext } from '../../../context/RoomContext';
+import {deleteRoomById, getAllRooms} from '../../../services/roomService.js';
+import {fetchAttractions} from "../../../services/nearbyAttraction.js";
 
 const Container = styled.div`
   padding: 20px;
@@ -96,12 +98,33 @@ const ActionButton = styled.button`
 `;
 
 const ListRoom = () => {
-    const { rooms } = useRoomContext();
+    const [rooms, setRooms] = useState([]);
+    const { fetchCounts } = useOutletContext(); // Fetching rooms and fetchCounts from context
 
-    const confirmDelete = (id) => {
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getAllRooms();
+                setRooms(data);
+            } catch (error) {
+                toast.error('Failed to fetch attractions');
+            }
+        };
+        fetchData();
+    }, []);
+
+    const confirmDelete = async (id) => {
         if (window.confirm("Are you sure you want to delete this room?")) {
-            // Implement handleDeleteRoom functionality
-            toast.success('Room deleted successfully');
+            try {
+                await deleteRoomById(id); // Call delete service
+                setRooms(rooms.filter(room => room.id !== id));
+                toast.success('Room deleted successfully');
+                fetchCounts(); // Refresh the list of rooms and count after deletion
+
+            } catch (error) {
+                toast.error('Failed to delete room');
+                console.error('Error deleting room:', error);
+            }
         }
     };
 
@@ -113,7 +136,6 @@ const ListRoom = () => {
             </AddButton>
             <RoomList>
                 {rooms.map(room => {
-                    // Prepare image source for room
                     const imageSrc = room.image ? `data:image/jpeg;base64,${room.image}` : null;
                     return (
                         <RoomItem key={room.id}>
@@ -125,7 +147,7 @@ const ListRoom = () => {
                             <div style={{ flex: 1 }}>
                                 <h3>{room.name}</h3>
                                 <p>Price: ${room.price}</p>
-                                <p>Capacity: {room.capacity}</p>
+                                <p>Max Person/s: {room.maxPerson}</p>
                                 <p>{room.description}</p>
                             </div>
                             <ActionContainer>

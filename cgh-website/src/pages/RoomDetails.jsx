@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AdultsDropdown, CheckIn, CheckOut, KidsDropdown, ScrollToTop } from '../components';
-import { fetchFacilitiesByRoomId } from '../services/roomFacilitiesService';
 import { hotelRules } from '../constants/data';
 import { FaCheck } from 'react-icons/fa';
 import { FaWifi, FaCoffee, FaBath, FaParking, FaHotdog, FaCocktail } from 'react-icons/fa';
 import { useRoomContext } from '../context/RoomContext';
+import {getFacilityById} from "../services/facilityService.js";
 
 const RoomDetails = () => {
   const { id } = useParams();
@@ -27,12 +27,12 @@ const RoomDetails = () => {
 
     const fetchRoomData = async () => {
       try {
-        const roomResponse = await fetch(`http://localhost:8080/rooms/${id}`);
+        const roomResponse = await fetch(`http://localhost:8080/rooms/getById/${id}`);
         if (!roomResponse.ok) throw new Error('Failed to fetch room data');
         const roomData = await roomResponse.json();
         setRoom(roomData);
 
-        const facilitiesData = await fetchFacilitiesByRoomId(id);
+        const facilitiesData = await getFacilityById(id);
         setFacilities(facilitiesData);
       } catch (error) {
         console.error('Error fetching room or facilities data:', error);
@@ -94,7 +94,7 @@ const RoomDetails = () => {
 
   if (!room) return <div>Loading...</div>;
 
-  const { name, description, price, imageLg } = room;
+  const { name, description, price, image } = room;
 
   const iconMapping = {
     'FaWifi': <FaWifi />,
@@ -118,19 +118,22 @@ const RoomDetails = () => {
             <div className='w-full lg:w-[60%] h-full text-justify'>
               <h2 className='h2'>{name}</h2>
               <p className='mb-8'>{description}</p>
-              <img className='mb-8' src={`data:image/jpeg;base64,${imageLg}`} alt="roomImg" />
+              <img className='mb-8' src={`data:image/jpeg;base64,${image}`} alt="roomImg" />
               <div className='mt-12'>
                 <h3 className='h3 mb-3'></h3>
                 <p className='mb-12'> Amenities: </p>
                 {/* icons grid */}
                 <div className="grid grid-cols-3 gap-6 mb-12">
-                  {facilities.map((item, index) => (
-                      <div key={index} className='flex items-center gap-x-3 flex-1'>
-                        <div className='text-3xl text-accent'>{iconMapping[item.facilityIcon]}</div>
-                        <div className='text-base'>{item.facilityName}</div>
+                  {facilities.map((item) => (
+                      <div key={item.id} className='flex items-center gap-x-3 flex-1'>
+                        <div className='text-3xl text-accent'>
+                          {iconMapping[item.description]} {/* Assuming 'description' holds the icon name */}
+                        </div>
+                        <div className='text-base'>{item.name}</div> {/* Assuming 'name' holds the facility name */}
                       </div>
                   ))}
                 </div>
+
               </div>
             </div>
             {/* ➡️➡️➡️ right side ➡️➡️➡️ */}

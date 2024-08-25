@@ -8,24 +8,27 @@ export const useRestaurant = () => useContext(RestaurantContext);
 export const RestaurantProvider = ({ children }) => {
     const [menus, setMenus] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [count, setCount] = useState(0);
+
+    const fetchCounts = async () => {
+        try {
+            const data = await getAllMenus();
+            setMenus(data);
+            setCount(data.length);
+        } catch (error) {
+            console.error('Error fetching menus:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        const fetchMenus = async () => {
-            try {
-                const data = await getAllMenus();
-                setMenus(data);
-            } catch (error) {
-                console.error('Error fetching menus:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchMenus();
+        fetchCounts();
     }, []);
 
     const addMenu = (newMenu) => {
         setMenus((prevMenus) => [...prevMenus, newMenu]);
+        setCount((prevCount) => prevCount + 1);
     };
 
     const updateMenu = (updatedMenu) => {
@@ -40,11 +43,12 @@ export const RestaurantProvider = ({ children }) => {
         setMenus((prevMenus) =>
             prevMenus.filter((menu) => menu.id !== menuId)
         );
+        setCount((prevCount) => prevCount - 1);
     };
 
     return (
         <RestaurantContext.Provider
-            value={{ menus, loading, addMenu, updateMenu, deleteMenu }}
+            value={{ menus, loading, count, fetchCounts, addMenu, updateMenu, deleteMenu }}
         >
             {children}
         </RestaurantContext.Provider>

@@ -9,10 +9,6 @@ import java.util.List;
 
 public interface RoomRepo extends JpaRepository<Room, Long> {
 
-    List<Room> findByNameContainingIgnoreCase(String name);
-
-    List<Room> findByMaxPerson(Integer maxPerson);
-
     @Query("SELECT r FROM Room r WHERE r.price BETWEEN :minPrice AND :maxPrice")
     List<Room> findByPriceRange(@Param("minPrice") Double minPrice, @Param("maxPrice") Double maxPrice);
 

@@ -3,6 +3,7 @@ package com.cityguesthouse.cgh.controller;
 import com.cityguesthouse.cgh.entity.Room;
 import com.cityguesthouse.cgh.pojo.RoomPojo;
 import com.cityguesthouse.cgh.service.RoomService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,47 +19,41 @@ public class RoomController {
     private final RoomService roomService;
 
     @PostMapping("/save")
-    public String saveRoom(@RequestBody RoomPojo roomPojo) throws IOException {
-        return roomService.saveRoom(roomPojo);
+    public String saveRoom(@ModelAttribute @Valid RoomPojo roomPojo) throws IOException {
+        return roomService.save(roomPojo);
     }
 
-    @GetMapping("/all")
-    public List<Room> getAllRooms() {
-        return roomService.getAllRooms();
+    @GetMapping("/getAll")
+    public List<Room> getAll() {
+        return roomService.getAll();
     }
 
-    @GetMapping("/{id}")
-    public Optional<Room> getRoomById(@PathVariable Long id) {
-        return roomService.getRoomById(id);
+    @GetMapping("/getById/{id}")
+    public Optional<Room> getById(@PathVariable("id") Long id) {
+        return roomService.getById(id);
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteRoomById(@PathVariable Long id) throws IOException {
-        roomService.deleteRoomById(id);
-        return "Room deleted successfully!";
+    public void deleteById(@PathVariable("id") Long id) throws IOException {
+        roomService.deleteById(id);
+    }
+
+    @PutMapping("/update/{id}")
+    public String updateRoom(@PathVariable("id") Long id, @ModelAttribute @Valid RoomPojo roomPojo) throws IOException {
+        return roomService.update(id, roomPojo);
     }
 
     @GetMapping("/search")
-    public List<Room> searchRoomsByName(@RequestParam String name) {
-        return roomService.searchRoomsByName(name);
+    public List<Room> searchByName(@RequestParam("name") String name) {
+        return roomService.searchByName(name);
     }
 
-    @GetMapping("/searchByMaxPerson")
-    public List<Room> searchRoomsByMaxPerson(@RequestParam Integer maxPerson) {
-        return roomService.searchRoomsByMaxPerson(maxPerson);
-    }
-
-    @GetMapping("/searchByPriceRange")
-    public List<Room> searchRoomsByPriceRange(@RequestParam Double minPrice, @RequestParam Double maxPrice) {
-        return roomService.searchRoomsByPriceRange(minPrice, maxPrice);
-    }
-
-    @GetMapping("/searchByFilters")
-    public List<Room> searchRoomsByFilters(
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) Integer maxPerson,
-            @RequestParam(required = false) Double minPrice,
-            @RequestParam(required = false) Double maxPrice) {
-        return roomService.searchRoomsByFilters(name, maxPerson, minPrice, maxPrice);
+    @GetMapping("/filter")
+    public List<Room> filterRooms(
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "maxPerson", required = false) Integer maxPerson,
+            @RequestParam(value = "minPrice", required = false) Double minPrice,
+            @RequestParam(value = "maxPrice", required = false) Double maxPrice) {
+        return roomService.filterRooms(name, maxPerson, minPrice, maxPrice);
     }
 }

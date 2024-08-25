@@ -1,6 +1,6 @@
 package com.cityguesthouse.cgh.pojo;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,16 +10,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoomFacilitiesPojo {
+public class FacilityPojo {
 
     private Long id;
 
-    @NotNull(message = "Room ID is required")
-    private Long roomId;
-
     @NotBlank(message = "Facility name is required")
-    private String facilityName;
+    private String name;
 
-    @NotBlank(message = "Facility icon is required")
-    private String facilityIcon;
+    private String description;
+
+    private Long roomId;
 }

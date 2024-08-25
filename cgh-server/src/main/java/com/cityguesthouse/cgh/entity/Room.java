@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Entity
 @Table(name = "rooms")
 @Getter
@@ -26,11 +24,6 @@ public class Room {
     @Column(nullable = false, length = 1000)
     private String description;
 
-    @ElementCollection
-    @CollectionTable(name = "room_facilities", joinColumns = @JoinColumn(name = "room_id"))
-    @Column(name = "facility")
-    private List<String> facilities;
-
     @Column(nullable = false)
     private Integer size;
 
@@ -42,7 +35,4 @@ public class Room {
 
     @Column(nullable = false)
     private String image;
-
-    @Column(nullable = false)
-    private String imageLg;
 }

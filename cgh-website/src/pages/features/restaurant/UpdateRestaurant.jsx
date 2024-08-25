@@ -37,7 +37,7 @@ const UpdateRestaurant = () => {
         try {
             await updateMenu(id, menuData);
             toast.success('Menu item updated successfully');
-            navigate('/dashboard/list-restaurant');
+            navigate('/dashboard/list-restaurants');
         } catch (error) {
             toast.error('Failed to update menu item');
         }

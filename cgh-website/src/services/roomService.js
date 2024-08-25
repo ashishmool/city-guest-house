@@ -5,7 +5,7 @@ const API_URL = 'http://localhost:8080/rooms'; // Adjust the base URL as per you
 // Fetch all rooms
 export const getAllRooms = async () => {
     try {
-        const response = await axios.get(`${API_URL}/all`);
+        const response = await axios.get(`${API_URL}/getAll`);
         return response.data;
     } catch (error) {
         console.error('Error fetching rooms:', error);

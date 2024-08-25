@@ -9,19 +9,19 @@ import java.util.Optional;
 
 public interface RoomService {
 
-    String saveRoom(RoomPojo roomPojo) throws IOException;
+    String save(RoomPojo roomPojo) throws IOException;
 
-    List<Room> getAllRooms();
+    List<Room> getAll();
 
-    void deleteRoomById(Long id) throws IOException;
+    void deleteById(Long id) throws IOException;
 
-    Optional<Room> getRoomById(Long id);
+    Optional<Room> getById(Long id);
 
-    List<Room> searchRoomsByName(String name);
+    String update(Long id, RoomPojo roomPojo) throws IOException;
 
-    List<Room> searchRoomsByMaxPerson(Integer maxPerson);
+    List<Room> searchByName(String name);
 
-    List<Room> searchRoomsByPriceRange(Double minPrice, Double maxPrice);
+    List<Room> filterRooms(String name, Integer maxPerson, Double minPrice, Double maxPrice);
 
-    List<Room> searchRoomsByFilters(String name, Integer maxPerson, Double minPrice, Double maxPrice);
+    List<Room> findByPriceRange(Double minPrice, Double maxPrice);
 }

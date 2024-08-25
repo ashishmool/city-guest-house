@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { FaUser, FaBed, FaBuilding, FaChartLine, FaSignOutAlt } from 'react-icons/fa';
+import {FaUser, FaBed, FaBuilding, FaChartLine, FaSignOutAlt, FaCoffee} from 'react-icons/fa';
 import {FaBowlFood} from "react-icons/fa6";
 
 const SidebarContainer = styled.div`
@@ -82,6 +82,9 @@ const Sidebar = () => {
                 <SidebarLink to="/dashboard">
                     <FaChartLine /> Dashboard
                 </SidebarLink>
+                <SidebarLink to="/dashboard/list-facilities">
+                    <FaCoffee /> Hotel Facilities
+                </SidebarLink>
                 <SidebarLink to="/dashboard/list-rooms">
                     <FaBed /> Rooms
                 </SidebarLink>
@@ -91,9 +94,9 @@ const Sidebar = () => {
                 <SidebarLink to="/dashboard/list-attractions">
                     <FaBuilding /> Nearby Attractions
                 </SidebarLink>
-                <SidebarLink to="/user">
-                    <FaUser /> System Users
-                </SidebarLink>
+                {/*<SidebarLink to="/user">*/}
+                {/*    <FaUser /> System Users*/}
+                {/*</SidebarLink>*/}
             </div>
             <SidebarFooter>
                 <LogoutLink onClick={handleLogout}>
