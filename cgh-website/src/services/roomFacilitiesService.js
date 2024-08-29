@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8080/facilities'; // Adjust the base URL according to your API structure
+const BASE_URL = 'http://54.253.164.255:8080/facilities'; // Adjust the base URL according to your API structure
 
 // Function to fetch facilities by room ID
 export const fetchFacilitiesByRoomId = async (roomId) => {

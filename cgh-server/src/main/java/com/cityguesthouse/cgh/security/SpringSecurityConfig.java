@@ -1,6 +1,5 @@
 package com.cityguesthouse.cgh.security;
 
-
 import com.cityguesthouse.cgh.config.PasswordEncoderUtil;
 import com.cityguesthouse.cgh.service.impl.CustomUserDetailService;
 import lombok.RequiredArgsConstructor;
@@ -32,44 +31,41 @@ public class SpringSecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception{
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 
-
     @Bean
-    protected SecurityFilterChain filterChain(HttpSecurity httpSecurity)
-            throws Exception {
+    protected SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .csrf().disable()
-                .authorizeHttpRequests()
-                .requestMatchers("/login",
-                        "/attractions/**",
-                        "/rooms/**",
-                        "/menu/**",
-                        "/categories/**",
-                        "/facilities/**",
-                        "/system-user/**",
-                        "/authenticate",
-                        "/authenticate/**",
-                        "/bookings/**",
-                        "/recover/**",
-                        "/recover/reset-password",
-                        "/system-user/**",
-                        "/system-user/new-password")
-                .permitAll()
-                .requestMatchers("/admin/**","/dashboard/**")
-                .hasAuthority("Admin")
-                .anyRequest()
-                .authenticated()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+                .csrf(csrf -> csrf.disable()) // Disable CSRF protection
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/login",
+                                "/attractions/**",
+                                "/rooms/**",
+                                "/menu/**",
+                                "/categories/**",
+                                "/facilities/**",
+                                "/system-user/**",
+                                "/authenticate",
+                                "/authenticate/**",
+                                "/bookings/**",
+                                "/recover/**",
+                                "/recover/reset-password",
+                                "/system-user/**",
+                                "/system-user/new-password")
+                        .permitAll()
+                        .requestMatchers("/admin/**", "/dashboard/**")
+                        .hasAuthority("Admin")
+                        .anyRequest()
+                        .authenticated()
+                )
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
     }
-
 }

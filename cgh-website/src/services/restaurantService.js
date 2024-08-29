@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = 'http://54.253.164.255:8080';
 
 // Fetch all menu items
 export const getAllMenus = async () => {

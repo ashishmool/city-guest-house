@@ -1,12 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { getMenusWithCategoryNames, deleteMenuById } from '../../../services/restaurantService';
-import { Link, useOutletContext } from 'react-router-dom'; // Import useOutletContext here
+import { Link, useOutletContext } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
 
 const Container = styled.div`
   padding: 20px;
+`;
+
+const ControlsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 30px; /* Space between the button and search bar */
+  margin-bottom: 20px; /* Space below the controls */
+`;
+
+const SearchInput = styled.input`
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
 const MenuList = styled.ul`
@@ -34,7 +51,6 @@ const AddButton = styled(Link)`
   border-radius: 5px;
   text-decoration: none;
   font-size: 16px;
-  margin-bottom: 20px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
@@ -84,6 +100,7 @@ const ActionButton = styled.button`
 
 const ListRestaurant = () => {
     const [menus, setMenus] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
     const { fetchCounts } = useOutletContext(); // Get fetchCounts from context
 
     useEffect(() => {
@@ -111,14 +128,27 @@ const ListRestaurant = () => {
         }
     };
 
+    const filteredMenus = menus.filter(menu =>
+        menu.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        menu.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <Container>
             <h2><center><strong>Menu Items</strong></center></h2>
-            <AddButton to="/dashboard/restaurant/add">
-                Add New Menu Item <FaPlus />
-            </AddButton>
+            <ControlsWrapper>
+                <AddButton to="/dashboard/restaurant/add">
+                    Add New Menu Item <FaPlus />
+                </AddButton>
+                <SearchInput
+                    type="text"
+                    placeholder="Search menus..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </ControlsWrapper>
             <MenuList>
-                {menus.map((menu) => (
+                {filteredMenus.map((menu) => (
                     <MenuItem key={menu.id}>
                         <h3>{menu.name}</h3>
                         <p>Price: {menu.price}</p>

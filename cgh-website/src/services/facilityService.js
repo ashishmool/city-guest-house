@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/facilities'; // Adjust the base URL as per your backend configuration
+const API_URL = 'http://54.253.164.255:8080/facilities'; // Adjust the base URL as per your backend configuration
 
 // Fetch all facilities
 export const getAllFacilities = async () => {

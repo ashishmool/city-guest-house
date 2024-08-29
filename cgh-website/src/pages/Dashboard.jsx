@@ -5,7 +5,7 @@ import Sidebar from '../components/Sidebar';
 import { getAllRooms } from '../services/roomService';
 import { fetchAttractions } from '../services/nearbyAttraction';
 import { getAllMenus } from '../services/restaurantService'; // Import the menu service
-
+import { getAllFacilities } from '../services/facilityService'; // Import the facility service
 
 const LayoutContainer = styled.div`
   display: flex;
@@ -90,6 +90,7 @@ const Dashboard = () => {
     const [roomCount, setRoomCount] = useState(0);
     const [attractionCount, setAttractionCount] = useState(0);
     const [menuCount, setMenuCount] = useState(0); // New state for menu count
+    const [facilityCount, setFacilityCount] = useState(0); // New state for facility count
 
     const fetchCounts = async () => {
         try {
@@ -101,6 +102,9 @@ const Dashboard = () => {
 
             const menus = await getAllMenus(); // Fetch menu items
             setMenuCount(menus.length); // Set menu count
+
+            const facilities = await getAllFacilities(); // Fetch facilities
+            setFacilityCount(facilities.length); // Set facility count
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -156,15 +160,14 @@ const Dashboard = () => {
                         <span>{attractionCount}</span>
                     </Widget>
                     <Widget>
-                        <h3>Menu Items</h3> {/* Updated title */}
-                        <span>{menuCount}</span> {/* Dynamic count */}
+                        <h3>Menu Items</h3>
+                        <span>{menuCount}</span>
                     </Widget>
                     <Widget>
-                        <h3>Bug Reports</h3>
-                        <span>234</span>
+                        <h3>Facilities</h3> {/* Updated title */}
+                        <span>{facilityCount}</span> {/* Dynamic count */}
                     </Widget>
                 </WidgetsContainer>
-
 
                 <Outlet context={{ fetchCounts }} /> {/* Pass fetchCounts to child components */}
             </DashboardContainer>

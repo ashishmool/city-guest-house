@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080/attractions'; // Adjust URL as needed
+const API_BASE_URL = 'http://54.253.164.255:8080/attractions'; // Adjust URL as needed
 
 // Function to get all attractions
 export const fetchAttractions = async () => {

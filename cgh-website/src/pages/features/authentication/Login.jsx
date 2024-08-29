@@ -18,7 +18,7 @@ const Login = ({ onClose }) => {
         setIsLoading(true);
 
         try {
-            const response = await axios.post("http://localhost:8080/authenticate", {
+            const response = await axios.post("http://54.253.164.255:8080/authenticate", {
                 email,
                 password
             });

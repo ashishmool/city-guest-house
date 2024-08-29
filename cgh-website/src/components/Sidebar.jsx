@@ -82,11 +82,11 @@ const Sidebar = () => {
                 <SidebarLink to="/dashboard">
                     <FaChartLine /> Dashboard
                 </SidebarLink>
-                <SidebarLink to="/dashboard/list-facilities">
-                    <FaCoffee /> Hotel Facilities
-                </SidebarLink>
                 <SidebarLink to="/dashboard/list-rooms">
                     <FaBed /> Rooms
+                </SidebarLink>
+                <SidebarLink to="/dashboard/list-facilities">
+                    <FaCoffee /> Hotel Facilities
                 </SidebarLink>
                 <SidebarLink to="/dashboard/list-restaurants">
                     <FaBowlFood /> Menu

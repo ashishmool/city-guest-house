@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAllFacilities, deleteFacilityById } from '../../../services/facilityService';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -39,14 +39,29 @@ const Button = styled.button`
 `;
 
 
-const AddButton = styled(Button)`
-  background-color: #28a745;
+const AddButton = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  background-color: #c33318;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
   margin-bottom: 20px;
-  
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
   &:hover {
-    background-color: #218838;
+    background-color: #73260e;
+  }
+
+  svg {
+    margin-left: 8px;
   }
 `;
+
+
 
 const ListFacility = () => {
     const [facilities, setFacilities] = useState([]);
