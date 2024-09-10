@@ -5,7 +5,7 @@ import Sidebar from '../components/Sidebar';
 import { getAllRooms } from '../services/roomService';
 import { fetchAttractions } from '../services/nearbyAttraction';
 import { getAllMenus } from '../services/restaurantService'; // Import the menu service
-import { getAllFacilities } from '../services/facilityService'; // Import the facility service
+// import { getAllFacilities } from '../services/facilityService'; // Import the facility service
 
 const LayoutContainer = styled.div`
   display: flex;

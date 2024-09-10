@@ -1,4 +1,4 @@
-const BASE_URL = 'http://54.253.164.255:8080'; // Adjust if necessary
+const BASE_URL = 'http://localhost:8080'; // Adjust if necessary
 
 export const addBooking = async (bookingData) => {
     try {
@@ -48,7 +48,7 @@ export const fetchBookingsByUser = async (userId) => {
 // In your booking service
 export const fetchBookings = async (roomId) => {
     try {
-        const response = await fetch(`http://54.253.164.255:8080/bookings/room/${roomId}`);
+        const response = await fetch(`http://localhost:8080/bookings/room/${roomId}`);
         return response.json();
     } catch (error) {
         console.error('Error fetching bookings:', error);

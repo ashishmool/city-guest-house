@@ -22,7 +22,7 @@ const Signup = ({ onClose }) => {
 
         try {
             // Signup API request
-            const signupResponse = await axios.post('http://54.253.164.255:8080/system-user/save', {
+            const signupResponse = await axios.post('http://localhost:8080/system-user/save', {
                 firstName,
                 lastName,
                 email,
@@ -33,7 +33,7 @@ const Signup = ({ onClose }) => {
                 toast.success('Signup successful! Logging in...');
 
                 // Login with newly created credentials
-                const loginResponse = await axios.post('http://54.253.164.255:8080/authenticate', {
+                const loginResponse = await axios.post('http://localhost:8080/authenticate', {
                     email,
                     password
                 });

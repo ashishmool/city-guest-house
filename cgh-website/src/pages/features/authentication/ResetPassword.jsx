@@ -12,7 +12,7 @@ const ResetPassword = ({ onClose }) => {
         try {
             console.log('Email for Recovery:::', email);
             // Send reset password request to the backend
-            const response = await axios.post('http://54.253.164.255:8080/recover/reset-password', {
+            const response = await axios.post('http://localhost:8080/recover/reset-password', {
                 sendToEmail: email,
             });
 

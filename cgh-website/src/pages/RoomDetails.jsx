@@ -5,7 +5,7 @@ import { hotelRules } from '../constants/data';
 import { FaCheck } from 'react-icons/fa';
 import { FaWifi, FaCoffee, FaBath, FaParking, FaHotdog, FaCocktail } from 'react-icons/fa';
 import { useRoomContext } from '../context/RoomContext';
-import {getFacilityById} from "../services/facilityService.js";
+// import {getFacilityById} from "../services/facilityService.js";
 
 const RoomDetails = () => {
   const { id } = useParams();
@@ -27,7 +27,7 @@ const RoomDetails = () => {
 
     const fetchRoomData = async () => {
       try {
-        const roomResponse = await fetch(`http://54.253.164.255:8080/rooms/getById/${id}`);
+        const roomResponse = await fetch(`http://localhost:8080/rooms/getById/${id}`);
         if (!roomResponse.ok) throw new Error('Failed to fetch room data');
         const roomData = await roomResponse.json();
         setRoom(roomData);
@@ -67,7 +67,7 @@ const RoomDetails = () => {
     };
 
     try {
-      const response = await fetch('http://54.253.164.255:8080/bookings/save', {
+      const response = await fetch('http://localhost:8080/bookings/save', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

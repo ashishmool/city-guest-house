@@ -20,10 +20,10 @@ import UpdateRoom from './pages/features/room/UpdateRoom';
 import { AttractionProvider } from './context/AttractionContext';
 import { RestaurantProvider } from './context/RestaurantContext';
 import { RoomProvider } from './context/RoomContext';
-import { FacilityProvider } from './context/FacilityContext';
-import ListFacility from './pages/features/facility/ListFacility';
-import AddFacility from './pages/features/facility/AddFacility';
-import UpdateFacility from './pages/features/facility/UpdateFacility';
+// import { FacilityProvider } from './context/FacilityContext';
+// import ListFacility from './pages/features/facility/ListFacility';
+// import AddFacility from './pages/features/facility/AddFacility';
+// import UpdateFacility from './pages/features/facility/UpdateFacility';
 
 const ProtectedRoute = ({ children }) => {
     const role = localStorage.getItem('role');
@@ -128,30 +128,30 @@ const App = () => (
                         </RoomProvider>
                     }
                 />
-                <Route
-                    path="list-facilities"
-                    element={
-                        <FacilityProvider>
-                            <ListFacility />
-                        </FacilityProvider>
-                    }
-                />
-                <Route
-                    path="room-facilities/add"
-                    element={
-                        <FacilityProvider>
-                            <AddFacility />
-                        </FacilityProvider>
-                    }
-                />
-                <Route
-                    path="room-facilities/update/:id"
-                    element={
-                        <FacilityProvider>
-                            <UpdateFacility />
-                        </FacilityProvider>
-                    }
-                />
+                {/*<Route*/}
+                {/*    path="list-facilities"*/}
+                {/*    element={*/}
+                {/*        <FacilityProvider>*/}
+                {/*            <ListFacility />*/}
+                {/*        </FacilityProvider>*/}
+                {/*    }*/}
+                {/*/>*/}
+                {/*<Route*/}
+                {/*    path="room-facilities/add"*/}
+                {/*    element={*/}
+                {/*        <FacilityProvider>*/}
+                {/*            <AddFacility />*/}
+                {/*        </FacilityProvider>*/}
+                {/*    }*/}
+                {/*/>*/}
+                {/*<Route*/}
+                {/*    path="room-facilities/update/:id"*/}
+                {/*    element={*/}
+                {/*        <FacilityProvider>*/}
+                {/*            <UpdateFacility />*/}
+                {/*        </FacilityProvider>*/}
+                {/*    }*/}
+                {/*/>*/}
             </Route>
 
             {/* 404 Page */}

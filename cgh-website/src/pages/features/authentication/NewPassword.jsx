@@ -43,7 +43,7 @@ const NewPassword = ({ onClose }) => {
                 return;
             }
 
-            const response = await axios.post('http://54.253.164.255:8080/system-user/new-password', {
+            const response = await axios.post('http://localhost:8080/system-user/new-password', {
                 token,
                 newPassword: password,
             });
