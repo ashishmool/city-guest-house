@@ -103,8 +103,8 @@ const Dashboard = () => {
             const menus = await getAllMenus(); // Fetch menu items
             setMenuCount(menus.length); // Set menu count
 
-            const facilities = await getAllFacilities(); // Fetch facilities
-            setFacilityCount(facilities.length); // Set facility count
+            // const facilities = await getAllFacilities(); // Fetch facilities
+            // setFacilityCount(facilities.length); // Set facility count
         } catch (error) {
             console.error('Error fetching data:', error);
         }
