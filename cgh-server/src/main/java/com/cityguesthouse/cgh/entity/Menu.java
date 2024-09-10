@@ -30,8 +30,8 @@ public class Menu {
     @Column(name = "price", nullable = false)
     private String price;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY) // Lazy fetch to avoid loading category unnecessarily
     @JoinColumn(name = "category_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference // Avoids infinite recursion during serialization
     private Category category;
 }

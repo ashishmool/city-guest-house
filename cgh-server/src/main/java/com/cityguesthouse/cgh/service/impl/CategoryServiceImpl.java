@@ -7,6 +7,7 @@ import com.cityguesthouse.cgh.service.CategoryService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,10 +37,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional // Add transactional annotation
     public Optional<Category> getById(Long id) {
-        return categoryRepo.findById(id);
+        Category category = categoryRepo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Category not found with ID: " + id));
+        category.getMenuItems().size(); // Force initialization of lazy-loaded menuItems
+        return Optional.of(category);
     }
-
     @Override
     public void deleteById(Long id) {
         Category category = categoryRepo.findById(id)

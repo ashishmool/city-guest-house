@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { FaCheck } from 'react-icons/fa';
 import { ScrollToTop } from '../components';
-import { getMenusWithCategoryNames } from '../services/restaurantService'; // Adjust the path as needed
+import { getMenusWithCategoryNames } from '../services/restaurantService';
 
 const Restaurant = () => {
     const [menuCategories, setMenuCategories] = useState([]);
