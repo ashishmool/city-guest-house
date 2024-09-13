@@ -12,8 +12,8 @@ const Container = styled.div`
 const ControlsWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 30px; /* Space between the button and search bar */
-  margin-bottom: 20px; /* Space below the controls */
+  gap: 30px;
+  margin-bottom: 20px;
 `;
 
 const SearchInput = styled.input`
@@ -24,6 +24,13 @@ const SearchInput = styled.input`
   width: 100%;
   max-width: 400px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
+
+const CategorySelect = styled.select`
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
 `;
 
 const MenuList = styled.ul`
@@ -38,8 +45,15 @@ const MenuItem = styled.li`
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
+  justify-content: space-between; /* Align content between left and right sides */
+  align-items: center;
+`;
+
+const MenuDetails = styled.div`
+  flex: 7; /* Take 70% of the width */
+  display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 5px;
 `;
 
 const AddButton = styled(Link)`
@@ -66,6 +80,8 @@ const AddButton = styled(Link)`
 const ActionContainer = styled.div`
   display: flex;
   gap: 20px;
+  flex: 3; /* Take 30% of the width */
+  justify-content: flex-end; /* Align buttons to the right */
 `;
 
 const ActionButton = styled.button`
@@ -101,7 +117,8 @@ const ActionButton = styled.button`
 const ListRestaurant = () => {
     const [menus, setMenus] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const { fetchCounts } = useOutletContext(); // Get fetchCounts from context
+    const [selectedCategory, setSelectedCategory] = useState('');
+    const { fetchCounts } = useOutletContext();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -121,7 +138,7 @@ const ListRestaurant = () => {
                 await deleteMenuById(id);
                 setMenus(menus.filter(menu => menu.id !== id));
                 toast.success('Menu item deleted successfully');
-                fetchCounts(); // Trigger count update in the dashboard
+                fetchCounts();
             } catch (error) {
                 toast.error('Failed to delete menu item');
             }
@@ -129,9 +146,12 @@ const ListRestaurant = () => {
     };
 
     const filteredMenus = menus.filter(menu =>
-        menu.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        menu.description.toLowerCase().includes(searchTerm.toLowerCase())
+        (menu.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            menu.description.toLowerCase().includes(searchTerm.toLowerCase())) &&
+        (selectedCategory === '' || menu.categoryName === selectedCategory)
     );
+
+    const uniqueCategories = [...new Set(menus.map(menu => menu.categoryName))];
 
     return (
         <Container>
@@ -146,14 +166,27 @@ const ListRestaurant = () => {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
+                <CategorySelect
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                    <option value="">All Categories</option>
+                    {uniqueCategories.map((category) => (
+                        <option key={category} value={category}>
+                            {category}
+                        </option>
+                    ))}
+                </CategorySelect>
             </ControlsWrapper>
             <MenuList>
                 {filteredMenus.map((menu) => (
                     <MenuItem key={menu.id}>
-                        <h3>{menu.name}</h3>
-                        <p>Price: {menu.price}</p>
-                        <p>Description: {menu.description}</p>
-                        <p>Category: {menu.categoryName}</p>
+                        <MenuDetails>
+                            <h3>{menu.name}</h3>
+                            <p>Price: {menu.price}</p>
+                            <p>Description: {menu.description}</p>
+                            <p>Category: {menu.categoryName}</p>
+                        </MenuDetails>
                         <ActionContainer>
                             <Link to={`/dashboard/restaurant/update/${menu.id}`}>
                                 <ActionButton>

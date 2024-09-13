@@ -16,7 +16,7 @@ export const getAllRooms = async () => {
 // Fetch a single room by ID
 export const fetchRoomById = async (id) => {
     try {
-        const response = await axios.get(`${API_URL}/${id}`);
+        const response = await axios.get(`${API_URL}/getById/${id}`);
         return response.data;
     } catch (error) {
         console.error(`Error fetching room with ID ${id}:`, error);

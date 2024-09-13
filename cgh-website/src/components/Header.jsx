@@ -1,14 +1,16 @@
-import { useRoomContext } from '../context/RoomContext';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useRoomContext } from '../context/RoomContext';
 import { LogoWhite, LogoDark } from '../assets';
-import Login from '../pages/features/authentication/Login'; // Import your Login component
-import { FaSignOutAlt, FaKey } from 'react-icons/fa'; // Import logout and key icons
+import Login from '../pages/features/authentication/Login';
+import { FaSignOutAlt, FaKey, FaBars, FaTimes } from 'react-icons/fa';
 
 const Header = () => {
   const { resetRoomFilterData } = useRoomContext();
   const [header, setHeader] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false); // State to toggle mobile menu
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,21 +24,21 @@ const Header = () => {
     };
   }, []);
 
-  // Determine if user is logged in and get email and role
   const accessToken = localStorage.getItem('accessToken');
   const userEmail = localStorage.getItem('email');
   const userRole = localStorage.getItem('role');
   const isLoggedIn = accessToken !== null;
 
-  // Handle user logout
   const handleLogout = () => {
-    localStorage.clear(); // Clear all tokens and user info from localStorage
-    window.location.href = '/'; // Redirect to the home page or login page
+    localStorage.clear();
+    window.location.href = '/';
   };
 
-  // Conditionally set navLinks based on user role
   const navLinks = userRole === 'Admin' ? [
-    { name: 'Dashboard', path: '/dashboard' }
+    { name: 'Dashboard', path: '/dashboard' },
+    { name: 'Rooms', path: '/rooms' },
+    { name: 'Restaurant', path: '/restaurant' },
+    { name: 'Nearby Attractions', path: '/attractions' },
   ] : [
     { name: 'Home', path: '/' },
     { name: 'Rooms', path: '/rooms' },
@@ -48,24 +50,42 @@ const Header = () => {
   return (
       <>
         <header
-            className={`fixed z-50 w-full transition-all duration-300 
-          ${header ? 'bg-white py-6 shadow-lg' : 'bg-transparent py-8'}`}
+            className={`fixed z-50 w-full transition-all duration-300 ${
+                header ? 'bg-white py-6 shadow-lg' : 'bg-transparent py-8'
+            }`}
         >
           <div className='container mx-auto flex flex-col lg:flex-row items-center lg:justify-between gap-y-6 lg:gap-y-0'>
             {/* Logo */}
-            <Link to="/" onClick={resetRoomFilterData}>
+            <div
+                onClick={() => {
+                  resetRoomFilterData(); // Reset filters when clicking the logo
+                  navigate('/');
+                }}
+                className='cursor-pointer'
+            >
               {header ? (
                   <LogoDark className='w-[160px]' />
               ) : (
                   <LogoWhite className='w-[200px]' />
               )}
-            </Link>
+            </div>
 
-            {/* Nav */}
+            {/* Hamburger Icon for Mobile */}
+            <div className='lg:hidden flex items-center'>
+              <button onClick={() => setMenuOpen(!menuOpen)}>
+                {menuOpen ? (
+                    <FaTimes className={`text-3xl ${header ? 'text-primary' : 'text-white'}`} />
+                ) : (
+                    <FaBars className={`text-3xl ${header ? 'text-primary' : 'text-white'}`} />
+                )}
+              </button>
+            </div>
+
+            {/* Nav for Desktop */}
             <nav
-                className={`${
+                className={`hidden lg:flex ${
                     header ? 'text-primary' : 'text-white'
-                } flex gap-x-4 lg:gap-x-8 font-tertiary tracking-[3px] text-[15px] items-center uppercase`}
+                } gap-x-4 lg:gap-x-8 font-tertiary tracking-[3px] text-[15px] items-center uppercase`}
             >
               {navLinks.map((link) => (
                   <Link to={link.path} className='transition hover:text-accent' key={link.name}>
@@ -75,7 +95,7 @@ const Header = () => {
             </nav>
 
             {/* User Info or Login Button */}
-            <div className='ml-4 flex items-center'>
+            <div className='hidden lg:flex ml-4 items-center'>
               {isLoggedIn ? (
                   <div className='flex items-center'>
                 <span className={`text-lg font-medium ${header ? 'text-primary' : 'text-gray-400'} mr-3`}>
@@ -100,6 +120,50 @@ const Header = () => {
               )}
             </div>
           </div>
+
+          {/* Mobile Nav Menu */}
+          {menuOpen && (
+              <nav className={`lg:hidden bg-white absolute top-full left-0 w-full shadow-lg py-4`}>
+                <ul className='flex flex-col items-center'>
+                  {navLinks.map((link) => (
+                      <li key={link.name}>
+                        <Link
+                            to={link.path}
+                            className='block py-2 px-4 text-gray-700 hover:text-primary'
+                            onClick={() => {
+                              setMenuOpen(false); // Close menu on click
+                              resetRoomFilterData(); // Reset filters when navigating
+                            }}
+                        >
+                          {link.name}
+                        </Link>
+                      </li>
+                  ))}
+                  <li className='py-2'>
+                    {isLoggedIn ? (
+                        <button
+                            onClick={handleLogout}
+                            className='flex items-center text-gray-700 hover:text-primary'
+                        >
+                          <FaSignOutAlt className='mr-1' />
+                          Logout
+                        </button>
+                    ) : (
+                        <button
+                            onClick={() => {
+                              setShowLogin(true);
+                              setMenuOpen(false); // Close menu when login is clicked
+                            }}
+                            className='flex items-center text-gray-700 hover:text-primary'
+                        >
+                          <FaKey className='mr-1' />
+                          Login
+                        </button>
+                    )}
+                  </li>
+                </ul>
+              </nav>
+          )}
         </header>
 
         {/* Render Login Modal */}
