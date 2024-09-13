@@ -5,7 +5,7 @@ import { hotelRules } from '../constants/data';
 import { FaCheck } from 'react-icons/fa';
 import { FaWifi, FaCoffee, FaBath, FaParking, FaHotdog, FaCocktail } from 'react-icons/fa';
 import { useRoomContext } from '../context/RoomContext';
-// import {getFacilityById} from "../services/facilityService.js";
+import { roomAmenities }from "../services/roomFacilitiesService.js";
 
 const RoomDetails = () => {
   const { id } = useParams();
@@ -32,12 +32,16 @@ const RoomDetails = () => {
         const roomData = await roomResponse.json();
         setRoom(roomData);
 
-        const facilitiesData = await getFacilityById(id);
-        setFacilities(facilitiesData);
+        // Get facilities data for the room
+        const roomFacility = roomAmenities.find((item) => item.roomId === parseInt(id)); // Find the room facility by roomId
+        if (roomFacility) {
+          setFacilities(roomFacility.facilities); // Set the facilities data
+        }
       } catch (error) {
         console.error('Error fetching room or facilities data:', error);
       }
     };
+
 
     fetchRoomData();
   }, [id, navigate]);
@@ -97,12 +101,12 @@ const RoomDetails = () => {
   const { name, description, price, image } = room;
 
   const iconMapping = {
-    'FaWifi': <FaWifi />,
-    'FaCoffee': <FaCoffee />,
-    'FaBath': <FaBath />,
-    'FaParking': <FaParking />,
-    'FaHotdog': <FaHotdog />,
-    'FaCocktail': <FaCocktail />
+    Wifi: <FaWifi />,
+    Coffee: <FaCoffee />,
+    Bath: <FaBath />,
+    'Parking Space': <FaParking />,
+    Breakfast: <FaHotdog />,
+    Drinks: <FaCocktail />,
   };
 
   return (
@@ -126,9 +130,9 @@ const RoomDetails = () => {
                   {facilities.map((item) => (
                       <div key={item.id} className='flex items-center gap-x-3 flex-1'>
                         <div className='text-3xl text-accent'>
-                          {iconMapping[item.description]} {/* Assuming 'description' holds the icon name */}
+                          {iconMapping[item.name]} {/* Use 'name' to get the corresponding icon */}
                         </div>
-                        <div className='text-base'>{item.name}</div> {/* Assuming 'name' holds the facility name */}
+                        <div className='text-base'>{item.name}</div> {/* Display facility name */}
                       </div>
                   ))}
                 </div>
