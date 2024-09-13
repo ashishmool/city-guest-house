@@ -90,7 +90,7 @@ const Dashboard = () => {
     const [roomCount, setRoomCount] = useState(0);
     const [attractionCount, setAttractionCount] = useState(0);
     const [menuCount, setMenuCount] = useState(0); // New state for menu count
-    const [facilityCount, setFacilityCount] = useState(0); // New state for facility count
+    const [bookingCount, setBookingCount] = useState(0); // New state for facility count
 
     const fetchCounts = async () => {
         try {
@@ -103,8 +103,9 @@ const Dashboard = () => {
             const menus = await getAllMenus(); // Fetch menu items
             setMenuCount(menus.length); // Set menu count
 
-            // const facilities = await getAllFacilities(); // Fetch facilities
-            // setFacilityCount(facilities.length); // Set facility count
+            // const bookings = await getAllBookings(); // Fetch booking
+            // setBookingCount(bookings.length); // Set booking count
+            setBookingCount(999); // Dummy Data Set
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -164,8 +165,8 @@ const Dashboard = () => {
                         <span>{menuCount}</span>
                     </Widget>
                     <Widget>
-                        <h3>Facilities</h3> {/* Updated title */}
-                        <span>{facilityCount}</span> {/* Dynamic count */}
+                        <h3>Bookings</h3> {/* Updated title */}
+                        <span>{bookingCount}</span> {/* Dynamic count */}
                     </Widget>
                 </WidgetsContainer>
 
