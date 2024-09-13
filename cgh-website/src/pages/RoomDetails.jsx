@@ -5,7 +5,7 @@ import { hotelRules } from '../constants/data';
 import { FaCheck } from 'react-icons/fa';
 import { FaWifi, FaCoffee, FaBath, FaParking, FaHotdog, FaCocktail } from 'react-icons/fa';
 import { useRoomContext } from '../context/RoomContext';
-import { roomAmenities }from "../services/roomFacilitiesService.js";
+import { roomAmenities } from "../services/roomFacilitiesService.js";
 
 const RoomDetails = () => {
   const { id } = useParams();
@@ -18,13 +18,6 @@ const RoomDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (!accessToken) {
-      console.log('Not Logged In');
-      navigate('/'); // Redirect to home if not logged in
-      return;
-    }
-
     const fetchRoomData = async () => {
       try {
         const roomResponse = await fetch(`http://localhost:8080/rooms/getById/${id}`);
@@ -42,52 +35,23 @@ const RoomDetails = () => {
       }
     };
 
-
     fetchRoomData();
   }, [id, navigate]);
 
-  const handleLogin = () => {
-    setShowLogin(true);
-  };
-
   const handleBooking = async () => {
     const accessToken = localStorage.getItem("accessToken");
-    const userId = localStorage.getItem("userId"); // Adjust based on how you store user info
 
     if (!accessToken) {
-      handleLogin();
+      alert('You need to log in to book this room.');
       return;
     }
 
     if (!room) return;
 
-    const bookingData = {
-      roomId: room.id,
-      userId: userId,
-      checkIn: checkInDate,
-      checkOut: checkOutDate,
-      noAdults: 1, // or use state from AdultsDropdown
-      noKids: 0 // or use state from KidsDropdown
-    };
+    // If accessToken exists, print to the console
+    console.log('Booking API hit with access token.');
 
-    try {
-      const response = await fetch('http://localhost:8080/bookings/save', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`
-        },
-        body: JSON.stringify(bookingData)
-      });
-
-      if (response.ok) {
-        alert('Booking successful!');
-      } else {
-        alert('Booking failed. Please try again.');
-      }
-    } catch (error) {
-      console.error('Error making booking:', error);
-    }
+    // You can add additional booking logic here if needed
   };
 
   if (showLogin) {
@@ -128,7 +92,7 @@ const RoomDetails = () => {
                 {/* icons grid */}
                 <div className="grid grid-cols-3 gap-6 mb-12">
                   {facilities.map((item) => (
-                      <div key={item.id} className='flex items-center gap-x-3 flex-1'>
+                      <div key={item.name} className='flex items-center gap-x-3 flex-1'>
                         <div className='text-3xl text-accent'>
                           {iconMapping[item.name]} {/* Use 'name' to get the corresponding icon */}
                         </div>
@@ -136,7 +100,6 @@ const RoomDetails = () => {
                       </div>
                   ))}
                 </div>
-
               </div>
             </div>
             {/* ➡️➡️➡️ right side ➡️➡️➡️ */}

@@ -8,12 +8,14 @@ const Room = ({ room }) => {
     const [loading, setLoading] = useState(false);
 
     const handleBookNowClick = () => {
+
+
         const accessToken = localStorage.getItem("accessToken");
 
-        if (!accessToken) {
-            alert('You need to log in to book this room.');
-            return;
-        }
+        // if (!accessToken) {
+        //     alert('You need to log in to book this room.');
+        //     return;
+        // }
 
         // If logged in, proceed with booking
         setLoading(true);
